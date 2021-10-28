@@ -18,12 +18,12 @@ module.exports = {
       'error',
       'ignorePackages',
       {
-        'js': 'never',
-        'jsx': 'never',
-        'ts': 'never',
-        'tsx': 'never'
-      }
-   ],
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
   },
   overrides: [
     {
