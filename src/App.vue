@@ -82,8 +82,8 @@
 </template>
 
 <script>
-import { ref } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { ref } from 'vue'
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'LayoutDefault',
@@ -95,7 +95,7 @@ export default {
   setup() {
     return {
       leftDrawerOpen: ref(false),
-    };
+    }
   },
-};
+}
 </script>
