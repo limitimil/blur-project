@@ -6,6 +6,10 @@ npm run build
 
 cd dist
 
-git push -f origin master:gh-pages
+git init
+git add -A
+git commit -m "Deploy to github page"
+git remote add deploy git@github.com:limitimil/blur-project.git
+git push -f deploy master:gh-pages
 
 cd -
