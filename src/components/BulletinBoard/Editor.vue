@@ -1,34 +1,46 @@
 <template>
-  <div> Hello World </div>
+  <div class="q-pa-md">
+    <div class="row">
+      <h6 class="col-12">Create an announcement</h6>
+    </div>
+    <div class="row">
+      <span class="col-3">Title:</span>
+      <q-input class="col-9" v-model="title"></q-input>
+      <span class="col-3">Content:</span>
+      <q-editor class="col-9" v-model="content"></q-editor>
+    </div>
+    <div class="row">
+      <q-btn :loading="loading" @click="submit">submit</q-btn>
+    </div>
+  </div>
 </template>
 <script lang="ts">
 
 export default {
-  name: 'New-Component',
-  props: [],
-  components: {
-  },
+  name: 'Editor',
   data() {
     return {
-      helloworold: 'helloworld' as string,
+      title: 'empty title',
+      content: 'empty article',
+      loading: false,
     }
+  },
+  methods: {
+    submit() {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const vm: any = this
+      vm.loading = true
+      setTimeout(() => {
+        vm.loading = false
+        // eslint-disable-next-line no-alert
+        alert('your announcement cannot be sent, please find your admin')
+      }, 1000 * 3)
+    },
   },
 }
 </script>
 <style scoped lang="less">
-.hack1{
- background-color: hsla(208, 26%, 75%, 1);
-}
-.hack2{
- background-color: hsla(17, 25%, 33%, 1);
-}
-.hack3{
- background-color: hsla(203, 16%, 96%, 1);
-}
-.hack4{
- background-color: hsla(214, 15%, 62%, 1);
-}
-.hack5{
- background-color: hsla(240, 7%, 47%, 1);
+.row:not(:first-child) {
+  padding-bottom: 8px;
 }
 </style>
