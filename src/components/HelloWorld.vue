@@ -1,7 +1,11 @@
 <template>
   <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="../assets/logo.svg" style="width: 200px; height: 200px">
-    <div> {{whereAmI}} </div>
+    <img
+      alt="BLUR logo"
+      src="../assets/01_BLUR_logo00_800x800.svg"
+      style="width: 200px; height: 200px"
+    />
+    <div>{{ whereAmI }}</div>
   </q-page>
 </template>
 
