@@ -3,6 +3,7 @@ import axios from '@/axios'
 
 interface ScenicSpotArgument {
   $top?: number;
+  $skip?: number;
 }
 
 export default class Tourism {
