@@ -5,7 +5,10 @@ function GetAuthorizationHeader() {
   const AppID = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF'
   const AppKey = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF'
 
-  const GMTString = new Date().toGMTString()
+  const GMTString = new Date().toUTCString()
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  // eslint-disable-next-line new-cap
   const ShaObj = new jsSHA('SHA-1', 'TEXT')
   ShaObj.setHMACKey(AppKey, 'TEXT')
   ShaObj.update(`x-date: ${GMTString}`)
@@ -22,7 +25,14 @@ function GetAuthorizationHeader() {
 const instance = axios.create({
   baseURL: 'https://ptx.transportdata.tw/',
   timeout: 10 * 1000,
-  headers: GetAuthorizationHeader(),
+  headers: {},
+})
+instance.interceptors.request.use((config) => {
+  const adjustedConfig = {
+    ...config,
+    headers: GetAuthorizationHeader(),
+  }
+  return adjustedConfig
 })
 
 export default instance
