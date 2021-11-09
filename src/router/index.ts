@@ -39,6 +39,14 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../components/HelloWorld.vue'),
   },
+  {
+    path: '/data-stories/:storyId',
+    name: 'DataStories',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../components/dataStories/StoryRoot.vue'),
+  },
 ]
 
 const router = createRouter({
