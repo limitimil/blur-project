@@ -4,7 +4,9 @@
           <h4>{{ storyId }}</h4>
           <br>
           <div>{{ dataCount }}</div>
-          <div>{{ data }}</div>
+          <div v-for="item in data" :key="item.ID">
+            <Card :value="item"/>
+          </div>
       </div>
   </q-page>
 </template>
@@ -13,9 +15,13 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import Stories from './stories'
+import Card from './Card.vue'
 
 export default {
   name: 'HelloWorld',
+  components: {
+    Card,
+  },
   setup() {
     const data = ref([])
     const dataCount = ref(0)
