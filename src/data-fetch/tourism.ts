@@ -7,7 +7,6 @@ interface ScenicSpotArgument {
 }
 
 export default class Tourism {
-  // eslint-disable-next-line class-methods-use-this
   public async getScenicSpot(arg: ScenicSpotArgument): Promise<any> {
     const url = 'MOTC/v2/Tourism/ScenicSpot'
     const params = {
