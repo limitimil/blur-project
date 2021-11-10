@@ -24,27 +24,23 @@
 
 <script>
 import { ref } from 'vue'
+import { useQuasar } from 'quasar'
 import Drawer from './views/Drawer.vue'
 
 export default {
   name: 'LayoutDefault',
 
-  data() {
-    return {
-      showDrawerAndHeader: false,
-    }
-  },
   components: {
     Drawer,
   },
 
   setup() {
+    const $q = useQuasar()
+    const showDrawerAndHeader = $q.cookies.get('devMode')
     return {
       leftDrawerOpen: ref(false),
+      showDrawerAndHeader,
     }
-  },
-  created() {
-    this.showDrawerAndHeader = this.$cookie.getCookie('devMode') === 'true'
   },
 }
 </script>
