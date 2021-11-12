@@ -1,6 +1,16 @@
 <template>
   <q-page>
-    Hello
+    <div id="travel">
+      <div class="row">
+        <div class="col-6"></div>
+        <div class="col-6">
+          <div class="flex">
+            <q-input outlined v-model="ph" label="Label" placeholder="Placeholder" dense />
+            <q-input outlined v-model="ph" label="Label" placeholder="Placeholder" dense />
+          </div>
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -14,4 +24,14 @@ export default defineComponent({
 })
 </script>
 <style>
+html {
+  height: 100%;
+}
+#travel {
+  background-image: url("../assets/bg/sky.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
 </style>

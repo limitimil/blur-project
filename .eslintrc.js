@@ -26,7 +26,7 @@ module.exports = {
       },
     ],
     indent: ['error', 2],
-    'linebreak-style': ['error', 'unix'],
+    'linebreak-style': ['warn', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     '@typescript-eslint/no-non-null-assertion': 'off',
