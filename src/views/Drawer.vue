@@ -34,6 +34,15 @@
             <q-item-label caption>week3</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item clickable tag="a" :href="item" :key="item" v-for="item in usefulLinks">
+          <q-item-section avatar>
+            <q-icon name="favorite_border" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{item}}</q-item-label>
+            <q-item-label caption>{{item}}</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 </template>
@@ -46,6 +55,14 @@ export default {
   name: 'HelloWorld',
   props: {
     value: Boolean,
+  },
+  data() {
+    return {
+      usefulLinks: [
+        '/data-stories/topFiveRecordWithOffsetTwo',
+        '/data-stories/topFiveRecordInCollection',
+      ],
+    }
   },
   computed: {
     whereAmI() {
