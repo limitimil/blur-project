@@ -36,7 +36,7 @@
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import Card from '@/components/dataStories/Card.vue'
+import Card from '@/components/_storyUtils/Card.vue'
 
 export default {
   name: 'HelloWorld',

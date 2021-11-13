@@ -15,7 +15,7 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import Stories from './stories'
-import Card from './Card.vue'
+import Card from '@/components/_storyUtils/Card.vue'
 
 export default {
   name: 'HelloWorld',
