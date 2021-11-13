@@ -8,15 +8,7 @@
 </template>
 <script lang="ts">
 import { ref } from 'vue'
-import { useQuasar } from 'quasar'
-import lodash from 'lodash'
-
-const COLLECTION_KEY = 'collection'
-const getCollectionToList = (value: string | null): string[] => {
-  console.log(value)
-  if (!value) return []
-  return JSON.parse(value)
-}
+import LocalCollection from '@/data-fetch/localCollection'
 
 export default {
   name: 'LayoutDefault',
@@ -29,19 +21,14 @@ export default {
   },
 
   setup(props: any) {
-    const $q = useQuasar()
-    const collection = getCollectionToList($q.localStorage.getItem(COLLECTION_KEY))
-    const isSaved = ref(collection.includes(props.value.ID))
+    const collection = new LocalCollection()
+    const isSaved = ref(collection.getCollectedSceneSpotIds().includes(props.value.ID))
     const handleUpdate = (checkBoxValue: boolean) => {
-      const currentCollection = getCollectionToList($q.localStorage.getItem(COLLECTION_KEY))
+      const id = props.value.ID
       if (checkBoxValue) {
-        currentCollection.push(props.value.ID)
-        $q.localStorage.set(COLLECTION_KEY, JSON.stringify(currentCollection))
+        collection.appendCollectedSceneSpotId(id)
       } else {
-        $q.localStorage.set(
-          COLLECTION_KEY,
-          JSON.stringify(lodash.remove(currentCollection, props.value.ID)),
-        )
+        collection.removeCollectedSceneSpotId(id)
       }
     }
     return {
@@ -69,5 +56,3 @@ export default {
  background-color: hsla(240, 7%, 47%, 1);
 }
 </style>
-
-
