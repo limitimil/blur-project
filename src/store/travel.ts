@@ -19,11 +19,7 @@ export default createStore({
   getters: {
     content: (state) => state.content,
     totalCount: (state) => state.totalCount,
-    query: (state):TravelQuery => {
-      city: state.commandService.city,
-      keyword: state.commandService.keyword,
-      className: state.commandService.className,
-    },
+    query: (state):TravelQuery => state.commandService.getStatus(),
   },
   mutations: {
     appendQuery(state, q: TravelQuery) {

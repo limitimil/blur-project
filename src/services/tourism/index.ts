@@ -47,6 +47,17 @@ export default class TourismService {
     this.offset = 0
   }
 
+  /* TODO:
+   * This method is only used by store/tourism.ts,
+   * and I think I can find a better way to make this property extraction better.
+  */
+  public getStatus(): any {
+    const { city, keyword, className } = this
+    return {
+      city, keyword, className,
+    }
+  }
+
   public top(count: number): void {
     this.count = count
     this.offset = 0
