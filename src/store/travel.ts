@@ -13,8 +13,6 @@ export default createStore({
     commandService: new TourismService(),
     totalCount: 0,
     content: [],
-    // other than fields in TourismService, the following information should be saved in this state
-    // 1. totalCount
   },
   getters: {
     content: (state) => state.content,
