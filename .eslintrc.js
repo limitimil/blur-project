@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'class-methods-use-this': 'off',
     'import/extensions': [
       'off',
       'ignorePackages',
@@ -33,6 +34,7 @@ module.exports = {
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'warn',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
     'vue/comment-directive': 'off',
   },
   overrides: [
