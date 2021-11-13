@@ -45,24 +45,11 @@ export default class TourismService {
     this.className = undefined
     this.count = 30
     this.offset = 0
-    return this.fetch()
-  }
-
-  public setCity(city: string): void {
-    this.city = city
-  }
-
-  public setClassName(className: string): void {
-    this.className = className
   }
 
   public top(count: number): void {
     this.count = count
     this.offset = 0
-  }
-
-  public byKeyword(keyword: string): void {
-    this.keyword = keyword
   }
 
   public toPage(offset: number): void {
@@ -71,5 +58,22 @@ export default class TourismService {
 
   public useCollection(value: boolean): void {
     this.isCollection = value
+  }
+
+  public setCity(city: string | undefined): void {
+    this.city = city
+  }
+
+  public setClassName(className: string | undefined): void {
+    this.className = className
+  }
+
+  public setKeyword(keyword: string | undefined): void {
+    this.keyword = keyword
+  }
+
+  // TODO: deprecate this interface
+  public byKeyword(keyword: string): void {
+    this.keyword = keyword
   }
 }
