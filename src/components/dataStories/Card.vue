@@ -1,14 +1,22 @@
 <template>
   <q-card>
     <q-card-section>
-      {{ hello }}
-      <q-checkbox></q-checkbox>
+      <q-checkbox v-model="isSaved" @update:model-value="handleUpdate"></q-checkbox>
       {{ value }}
     </q-card-section>
   </q-card>
 </template>
 <script lang="ts">
 import { ref } from 'vue'
+import { useQuasar } from 'quasar'
+import lodash from 'lodash'
+
+const COLLECTION_KEY = 'collection'
+const getCollectionToList = (value: string | null): string[] => {
+  console.log(value)
+  if (!value) return []
+  return JSON.parse(value)
+}
 
 export default {
   name: 'LayoutDefault',
@@ -20,10 +28,25 @@ export default {
   components: {
   },
 
-  setup() {
-    const hello = ref('world')
+  setup(props: any) {
+    const $q = useQuasar()
+    const collection = getCollectionToList($q.localStorage.getItem(COLLECTION_KEY))
+    const isSaved = ref(collection.includes(props.value.ID))
+    const handleUpdate = (checkBoxValue: boolean) => {
+      const currentCollection = getCollectionToList($q.localStorage.getItem(COLLECTION_KEY))
+      if (checkBoxValue) {
+        currentCollection.push(props.value.ID)
+        $q.localStorage.set(COLLECTION_KEY, JSON.stringify(currentCollection))
+      } else {
+        $q.localStorage.set(
+          COLLECTION_KEY,
+          JSON.stringify(lodash.remove(currentCollection, props.value.ID)),
+        )
+      }
+    }
     return {
-      hello,
+      isSaved,
+      handleUpdate,
     }
   },
 }
