@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import _ from '@/components/vuexStories/StoryRoot.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
