@@ -4,6 +4,12 @@
       <div class="row">
         <div class="col-6"></div>
         <div class="col-6">
+          <div class="flex items-center q-gutter-md">
+            <img src="@/assets/logo/travel.svg" />
+            <a href="#">
+              <img src="@/assets/icon/collection.svg" />
+            </a>
+          </div>
           <div class="flex">
             <q-input outlined v-model="ph" label="Label" placeholder="Placeholder" dense />
             <q-input outlined v-model="ph" label="Label" placeholder="Placeholder" dense />
