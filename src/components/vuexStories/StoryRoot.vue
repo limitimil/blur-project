@@ -39,7 +39,7 @@ import { useRoute } from 'vue-router'
 import Card from '@/components/_storyUtils/Card.vue'
 
 export default {
-  name: 'HelloWorld',
+  name: 'VuexStory',
   components: {
     Card,
   },

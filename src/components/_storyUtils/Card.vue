@@ -11,7 +11,7 @@ import { ref } from 'vue'
 import LocalCollection from '@/data-fetch/localCollection'
 
 export default {
-  name: 'LayoutDefault',
+  name: 'Card',
 
   props: [
     'value',
