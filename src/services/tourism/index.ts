@@ -20,7 +20,6 @@ export default class TourismService {
     let builder = new Tourism().withArg(arg)
     if (this.isCollection) {
       const collectedIds = new LocalCollection().getCollectedSceneSpotIds()
-      console.log(collectedIds)
       if (collectedIds.length) {
         builder = builder.withSubset(collectedIds)
       } else {

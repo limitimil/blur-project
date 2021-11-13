@@ -34,7 +34,6 @@ export default class LocalCollection {
   }
 
   public getCollectedSceneSpotIds(): string[] {
-    console.log('get collection ids')
     return this.get(KEYS.SCENIC_SPOT)
   }
 }

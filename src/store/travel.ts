@@ -23,7 +23,6 @@ export default createStore({
   },
   mutations: {
     appendQuery(state, q: TravelQuery) {
-      console.log(q)
       q.city && state.commandService.setCity(q.city)
       q.className && state.commandService.setClassName(q.className)
       q.keyword && state.commandService.setKeyword(q.keyword)
@@ -41,7 +40,6 @@ export default createStore({
     async top(context) {
       const command = context.state.commandService
       command.top(MAX_CONTENT_COUNT)
-      console.log(context.state.commandService)
       context.commit('setContent', await command.fetch())
     },
     async toPage(context, page:number) {
