@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios'
 import lodash from 'lodash'
 import axios from '@/axios'
 import TdxArgument from './interface/TdxArgument'
+import { TdxFilter, TdxStatements } from './tdx/filterDSL'
 
 export default class Tourism {
   private arg: TdxArgument = {}
@@ -14,12 +15,16 @@ export default class Tourism {
 
   private subset: string[] = [];
 
+  private filter: TdxFilter;
+
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  constructor() {
+    this.filter = new TdxFilter()
+  }
+
   // TODO: this builder is not able to collaberate with withKeyword, withClassName
   public withSubset(subset: string[]) :Tourism {
-    this.arg = {
-      ...this.arg,
-      ...this.bySubset(subset),
-    }
+    this.filter.regist(TdxStatements.filterIdSubset(subset))
     return this
   }
 
@@ -34,35 +39,21 @@ export default class Tourism {
   }
 
   public withKeyword(keyword: string): Tourism {
-    const fields = [
-      'Name',
-      'DescriptionDetail',
-      'Description',
-      'Address',
-      'Class1',
-      'Class2',
-      'Class3',
-      'Level',
-      'Remarks',
-      'Keyword',
-      'City',
-    ]
-    this.arg = {
-      ...this.arg,
-      ...this.fieldsByKeyword(keyword, fields),
-    }
+    this.filter.regist(TdxStatements.filterKeyword(keyword))
     return this
   }
 
   public withClassName(className: string): Tourism {
-    this.arg = {
-      ...this.arg,
-      ...this.byClassName(className),
-    }
+    this.filter.regist(TdxStatements.filterClassName(className))
     return this
   }
 
   public async getScenicSpotInvoker(): Promise<any> {
+    this.arg = {
+      ...this.arg,
+      $filter: this.filter.combineJobs(),
+    }
+    console.log(this.arg.$filter)
     if (this.city) {
       return this.getScenicSpotByCity(this.arg, this.city)
     }
