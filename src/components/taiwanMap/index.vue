@@ -1,15 +1,5 @@
 <template>
   <div id="taiwan-map">
-    <div class="title_area">
-      <h1>Taiwan<br />Weather Map<br /></h1>
-      <hr />
-      <div class="forcast" v-if="nowArea">
-        <h5>{{ nowArea.place }} {{ nowArea.tag }}</h5>
-        <h4>{{ nowArea.low }}~{{ nowArea.high }}°C</h4>
-        <h2>{{ nowArea.weather }}</h2>
-      </div>
-    </div>
-
     <svg
       id="cf503461-00bd-459a-aeb5-062ebc913211"
       data-name="圖層 1"

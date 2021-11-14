@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import $ from 'jquery'
-import { ref, computed, onMounted } from 'vue'
+import lodash from 'lodash'
+import {
+  ref, computed, onMounted, watch,
+} from 'vue'
+import CityService from '@/services/city'
 
+const TDX_PLACE_DATA = new CityService().getCities()
 const PLACE_DATA = [
   {
     tag: 'taipei_city',
@@ -160,7 +165,10 @@ const PLACE_DATA = [
 ]
 
 export default {
-  setup() {
+  props: ['city'],
+  emits: ['update:city'],
+  // @ts-ignore
+  setup(props, { emit }) {
     const filter = ref('')
     const placeData = ref(PLACE_DATA)
 
@@ -177,6 +185,25 @@ export default {
         elem.removeAttribute(attr)
       })
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function select(tdxCode: string) {
+      console.log(tdxCode)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const tdxName = lodash.find(TDX_PLACE_DATA, ['key', props.city])?.name
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [code, name] = [
+          lodash.find(PLACE_DATA, ['place', tdxName])?.tag,
+          tdxName,
+      ]
+      console.log(tdxCode, tdxName, code, name)
+
+      if (code) {
+        const selectedNode = document.querySelector(`#taiwan-map path [data-name=${code}`)
+        if (selectedNode) {
+          selectedNode.setAttribute('selected-region', 'true')
+        }
+      }
+    }
 
     onMounted(() => {
       // eslint-disable-next-line func-names,@typescript-eslint/no-unused-vars
@@ -188,6 +215,67 @@ export default {
         deSelectAll('selected-region')
         currentNode.setAttribute('selected-region', 'true')
       })
+
+      if (props.city) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const [tdxCode, tdxName] = [
+          props.city,
+          lodash.find(TDX_PLACE_DATA, ['key', props.city])?.name,
+        ]
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const [code, name] = [
+          lodash.find(PLACE_DATA, ['place', tdxName])?.tag,
+          tdxName,
+        ]
+
+        if (code) {
+          const selectedNode = document.querySelector(`#taiwan-map path [data-name=${code}`)
+          if (selectedNode) {
+            selectedNode.setAttribute('selected-region', 'true')
+          }
+        }
+      }
+    })
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    watch(filter, (newVal, oldVal) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [code, name] = [
+        newVal,
+          lodash.find(PLACE_DATA, ['tag', newVal])?.place,
+      ]
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [tdxCode, tdxName] = [
+        // @ts-ignore
+        lodash.find(TDX_PLACE_DATA, ['name', name])?.key,
+        name,
+      ]
+      // eslint-disable-next-line no-param-reassign
+      emit('update:city', tdxCode)
+    })
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    watch(props.city, (newVal, oldVal) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [tdxCode, tdxName] = [
+        // @ts-ignore
+        newVal,
+        lodash.find(TDX_PLACE_DATA, ['key', props.city])?.name,
+      ]
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [code, name] = [
+        lodash.find(PLACE_DATA, ['place', tdxName])?.tag,
+        tdxName,
+      ]
+      if (code) {
+        filter.value = code
+
+        const selectedNode = document.querySelector(`#taiwan-map path [data-name=${code}`)
+        deSelectAll('selected-region')
+        if (selectedNode) {
+          selectedNode.setAttribute('selected-region', 'true')
+        }
+      }
     })
 
     return {
