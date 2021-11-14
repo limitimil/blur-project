@@ -44,3 +44,20 @@ export default {
   },
 }
 </script>
+<style>
+.q-field__inner {
+  background: #FFFFFF;
+  border: 2px solid #4E4E4E;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+.q-field__native {
+  font-family: Noto Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 41px;
+  letter-spacing: 0.02em;
+  color: #D2D2D2 !important;
+}
+</style>

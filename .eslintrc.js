@@ -36,6 +36,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'vue/comment-directive': 'off',
+    'max-len': 'off',
   },
   overrides: [
     {
