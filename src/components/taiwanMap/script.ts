@@ -24,7 +24,7 @@ const PLACE_DATA = [
   },
   {
     tag: 'taichung_city',
-    place: '台中市',
+    place: '臺中市',
     low: 20,
     high: 24,
     weather: 'Sunny',
@@ -136,7 +136,7 @@ const PLACE_DATA = [
   },
   {
     tag: 'taitung_country',
-    place: '台東縣',
+    place: '臺東縣',
     low: 20,
     high: 24,
     weather: 'Sunny',
