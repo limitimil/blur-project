@@ -57,6 +57,14 @@ const topFiveRecordInCollection = async () => {
   service.useCollection(true)
   return service.fetch()
 }
+const topFiveRecordInCollectionWithKeywordAndClassName = async () => {
+  const service = new TourismService()
+  service.top(5)
+  service.useCollection(true)
+  service.setClassName('自然風景類')
+  service.byKeyword('美食')
+  return service.fetch()
+}
 export default {
   topFiveRecordWithOffsetTwo,
   topFiveRecordWithOffsetTwoInTaipei,
@@ -66,4 +74,5 @@ export default {
   topFiveRecordWithOffsetTwoWithClassNameAndKeyword, // Buggy
   topFiveRecordWithOffsetTwoWithCityAndKeyword,
   topFiveRecordInCollection,
+  topFiveRecordInCollectionWithKeywordAndClassName, // Url Too Long
 }
