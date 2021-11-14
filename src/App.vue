@@ -66,4 +66,8 @@ export default {
 .q-field--standard .q-field__control:before {
   border: none !important;
 }
+.q-focus-helper:before, .q-focus-helper:after {
+  background: #33A6B8 !important;
+  opacity: 1 !important;
+}
 </style>
