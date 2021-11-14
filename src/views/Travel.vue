@@ -14,10 +14,15 @@
               </div>
             </div>
             <div class="col-4">
-              <q-input outlined v-model="ph" label="Label" placeholder="Placeholder" dense />
+              <q-input outlined v-model="ph" placeholder="類別" />
             </div>
             <div class="col-8">
-              <q-input outlined v-model="ph" label="Label" placeholder="Placeholder" dense />
+              <q-input outlined v-model="ph" placeholder="想去哪兒？">
+                <template v-slot:append>
+                  <span class="q-mr-xs">|</span>
+                  <q-icon name="search" />
+                </template>
+              </q-input>
             </div>
             <div class="col-4">
               <q-card class="my-card">
