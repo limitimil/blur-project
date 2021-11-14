@@ -49,6 +49,10 @@ export class TdxFilter {
     this.jobs = []
   }
 
+  public getLength() {
+    return this.jobs.length
+  }
+
   public regist(statement: string[]) {
     this.jobs.push(statement)
   }
