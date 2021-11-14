@@ -61,6 +61,7 @@ export default {
       usefulLinks: [
         '/data-stories/topFiveRecordWithOffsetTwo',
         '/data-stories/topFiveRecordInCollection',
+        '/vuex-stories/travel',
       ],
     }
   },
