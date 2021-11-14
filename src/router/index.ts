@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import _ from '@/components/vuexStories/StoryRoot.vue'
+
+require('@/components/vuexStories/StoryRoot.vue')
+require('@/components/componentStories/StoryRoot.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -56,6 +57,14 @@ const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../components/vuexStories/StoryRoot.vue'),
+  },
+  {
+    path: '/component-stories/:storyId',
+    name: 'ComponentStories',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../components/componentStories/StoryRoot.vue'),
   },
 ]
 
