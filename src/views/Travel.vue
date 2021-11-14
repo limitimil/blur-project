@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-6"></div>
         <div class="col-6">
-          <div class="row q-col-gutter-md" style="width:586px">
+          <div class="row q-col-gutter-md" style="max-width:586px">
             <div class="col-12">
               <div class="flex items-center q-gutter-md">
                 <img src="@/assets/logo/travel.svg" width="506"/>
@@ -14,7 +14,7 @@
               </div>
             </div>
             <div class="col-4">
-              <q-input outlined v-model="ph" placeholder="類別" />
+              <q-select v-model="model" :options="[1,2,'happy']" label="類別" />
             </div>
             <div class="col-8">
               <q-input outlined v-model="ph" placeholder="想去哪兒？">

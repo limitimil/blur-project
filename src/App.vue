@@ -45,19 +45,25 @@ export default {
 }
 </script>
 <style>
-.q-field__inner {
+.q-field__inner, .q-menu {
   background: #FFFFFF;
   border: 2px solid #4E4E4E;
   box-sizing: border-box;
-  border-radius: 20px;
+  border-radius: 20px !important;
 }
 .q-field__native {
-  font-family: Noto Sans;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 30px;
+  font-size: 30px !important;
   line-height: 41px;
   letter-spacing: 0.02em;
   color: #D2D2D2 !important;
+}
+.q-field__label {
+  line-height: 41px;
+  letter-spacing: 0.1em;
+  color: #4E4E4E !important;
+}
+.q-field--outlined .q-field__control:before,
+.q-field--standard .q-field__control:before {
+  border: none !important;
 }
 </style>
