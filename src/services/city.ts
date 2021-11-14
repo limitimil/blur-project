@@ -1,6 +1,6 @@
 export default class CityService {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async getCities(): Promise<any> {
+  public getCities(): {name: string, key: string}[] {
     return [
       {
         name: '臺北市',
