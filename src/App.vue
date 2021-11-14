@@ -36,7 +36,7 @@ export default {
 
   setup() {
     const $q = useQuasar()
-    const showDrawerAndHeader = true
+    const showDrawerAndHeader = $q.cookies.get('devMode')
     return {
       leftDrawerOpen: ref(false),
       showDrawerAndHeader,
