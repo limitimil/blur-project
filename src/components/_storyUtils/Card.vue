@@ -1,8 +1,18 @@
 <template>
-  <q-card>
+  <q-card class="card">
+    <img :src="value?.Picture?.PictureUrl1" alt="">
     <q-card-section>
-      <q-checkbox v-model="isSaved" @update:model-value="handleUpdate"></q-checkbox>
-      {{ value }}
+      <div class="row justify-between">
+        <div class="card-header">#{{value?.City}}</div>
+        <div class="collect-btn">Collect</div>
+      </div>
+      <div class="row card-tags justify-between">
+        <q-badge>badge here</q-badge>
+      </div>
+      <div class="row card-title">{{value?.Name}}</div>
+      <ul>
+        <li v-for="item in Object.entries(value)" :key="item"> {{item}}</li>
+      </ul>
     </q-card-section>
   </q-card>
 </template>
@@ -39,3 +49,17 @@ export default {
 }
 
 </script>
+<styile lang="less" scoped>
+.card {
+  border-radius: 15px;
+}
+.card-header {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.05em;
+
+  /* Red */
+
+  color: #E15C6C;
+}
+</styile>
