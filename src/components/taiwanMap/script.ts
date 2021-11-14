@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import $ from 'jquery'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 const PLACE_DATA = [
   {
@@ -172,14 +172,24 @@ export default {
       return result[0]
     })
 
-    // eslint-disable-next-line func-names,@typescript-eslint/no-unused-vars
-    $('path').mouseenter(function (e: any) {
-      // @ts-ignore
-      const currentNode: any = this
-      // @ts-ignore
-      const tagname: string = $(currentNode).attr('data-name')
-      filter.value = tagname
+    function deSelectAll(attr: string) {
+      document.querySelectorAll('#taiwan-map path').forEach((elem) => {
+        elem.removeAttribute(attr)
+      })
+    }
+
+    onMounted(() => {
+      // eslint-disable-next-line func-names,@typescript-eslint/no-unused-vars
+      $('path').on('click', function (e: any) {
+        const currentNode: any = this
+        // @ts-ignore
+        const tagname: string = $(currentNode).attr('data-name')
+        filter.value = tagname
+        deSelectAll('selected-region')
+        currentNode.setAttribute('selected-region', 'true')
+      })
     })
+
     return {
       filter,
       placeData,
