@@ -49,9 +49,11 @@ export default class Tourism {
   }
 
   public async getScenicSpotInvoker(): Promise<any> {
-    this.arg = {
-      ...this.arg,
-      $filter: this.filter.combineJobs(),
+    if (this.filter.getLength()) {
+      this.arg = {
+        ...this.arg,
+        $filter: this.filter.combineJobs(),
+      }
     }
     console.log(this.arg.$filter)
     if (this.city) {
