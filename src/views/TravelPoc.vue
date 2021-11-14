@@ -2,9 +2,6 @@
   <q-page>
     <div id="travel">
       <div class="row">
-        <div class="hack">hack</div>
-      </div>
-      <div class="row">
         <div class="col-6">
           <TaiwanMap @update:city="updateQueryMethods.city"></TaiwanMap>
         </div>
