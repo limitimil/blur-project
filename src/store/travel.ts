@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { createStore } from 'vuex'
 import TourismService from '@/services/tourism'
+import LocalCollection from '@/data-fetch/localCollection'
 
 const MAX_CONTENT_COUNT = 9
 interface TravelQuery {
@@ -11,10 +12,13 @@ interface TravelQuery {
 export default createStore({
   state: {
     commandService: new TourismService(),
+    commandLocal: new LocalCollection(),
     totalCount: 0,
     content: [],
+    savedIds: [],
   },
   getters: {
+    savedIds: (state) => state.savedIds,
     content: (state) => state.content,
     totalCount: (state) => state.totalCount,
     query: (state):TravelQuery => state.commandService.getStatus(),
@@ -33,6 +37,9 @@ export default createStore({
     setContent(state, content) {
       state.content = content
     },
+    setSaveIds(state, ids) {
+      state.savedIds = ids
+    },
   },
   actions: {
     async top(context) {
@@ -44,6 +51,21 @@ export default createStore({
       const command = context.state.commandService
       command.toPage(page)
       context.commit('setContent', await command.fetch())
+    },
+    save(context, id: string) {
+      const command = context.state.commandLocal
+      command.appendCollectedSceneSpotId(id)
+      context.commit('setSaveIds', command.getCollectedSceneSpotIds())
+    },
+    unSave(context, id: string) {
+      const command = context.state.commandLocal
+      command.removeCollectedSceneSpotId(id)
+      context.commit('setSaveIds', command.getCollectedSceneSpotIds())
+    },
+    getSavedIds(context) {
+      const command = context.state.commandLocal
+      console.log('get')
+      context.commit('setSaveIds', command.getCollectedSceneSpotIds())
     },
   },
   modules: {
