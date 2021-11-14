@@ -14,8 +14,10 @@
 <script lang="ts">
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import Stories from './stories'
-import Card from '@/components/_storyUtils/Card.vue'
+import Card from '@/components/_week1Utils/Card.vue'
+// import Card from '@/components/_storyUtils/Card.vue'
 
 export default {
   name: 'DataStories',
@@ -23,6 +25,8 @@ export default {
     Card,
   },
   setup() {
+    const store = useStore()
+
     const data = ref([])
     const dataCount = ref(0)
     const route = useRoute()
@@ -35,6 +39,7 @@ export default {
       dataCount.value = res.length
       data.value = res
     })
+    store.dispatch('getSavedIds')
     return {
       data,
       dataCount,
