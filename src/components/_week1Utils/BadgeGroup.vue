@@ -6,7 +6,7 @@
 import { ref, computed } from 'vue'
 
 export default {
-  name: 'LayoutDefault',
+  name: 'BadgeGroup',
 
   props: ['value'],
 

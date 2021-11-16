@@ -165,6 +165,7 @@ const PLACE_DATA = [
 ]
 
 export default {
+  name: 'TaiwanMap',
   props: ['city'],
   emits: ['update:city'],
   // @ts-ignore
