@@ -14,12 +14,14 @@ import { useRoute } from 'vue-router'
 
 import TaiwanMap from '@/components/taiwanMap/index.vue'
 import TaiwanCountyMap from './stories/TaiwanCountyMap.vue'
+import GoogleMap from './stories/GoogleMap.vue'
 
 export default {
   name: 'ComponentStory',
   components: {
     TaiwanMap,
     TaiwanCountyMap,
+    GoogleMap,
   },
   setup() {
     const route = useRoute()
