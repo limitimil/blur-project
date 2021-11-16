@@ -47,7 +47,7 @@ export default {
 
     const storyId = ref(route.params.storyId)
 
-    const city = ref('')
+    const city = ref('Taipei')
 
     return {
       storyId,
