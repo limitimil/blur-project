@@ -8,7 +8,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "deploy": "sh deploy.sh"
+    "deploy": "sh deploy.sh",
+    "start": "node server.js"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
@@ -16,6 +17,7 @@
     "@types/lodash": "^4.14.176",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "express": "^4.17.1",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "quasar": "^2.0.0",
