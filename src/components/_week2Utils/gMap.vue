@@ -6,34 +6,34 @@
 </template>
 
 <script lang="js">
+import { ref, onMounted, defineComponent } from 'vue'
+import store from './store/gMap'
+
 function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
+  const map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
     center: { lat: 25.03357704438537, lng: 121.56165724984085 },
     mapTypeControl: false,
     fullscreenControl: false,
     zoomControl: true,
-    streetViewControl: false
-  });
+    streetViewControl: false,
+  })
 
-  return map;
+  return map
 }
 function handleLocationError(
-    browserHasGeolocation,
-    infoWindow,
-    pos
+  browserHasGeolocation,
+  infoWindow,
+  pos,
 ) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(
-      browserHasGeolocation
-        ? "Error: The Geolocation service failed."
-        : "Error: Your browser doesn't support geolocation."
-    );
-    infoWindow.open(map);
+  infoWindow.setPosition(pos)
+  infoWindow.setContent(
+    browserHasGeolocation
+      ? 'Error: The Geolocation service failed.'
+      : 'Error: Your browser doesn\'t support geolocation.',
+  )
+  infoWindow.open(map)
 }
-
-import { ref, onMounted, defineComponent } from 'vue'
-import store from './store/gMap'
 
 export default defineComponent({
   name: 'LayoutDefault',
@@ -43,15 +43,14 @@ export default defineComponent({
 
   setup() {
     let map
-    onMounted(()=>{
+    onMounted(() => {
       store.dispatch('initMap', 'map')
     })
     return {
-      toMyLocation: ()=> store.disaptch('centerByMyLocation'),
+      toMyLocation: () => store.disaptch('centerByMyLocation'),
     }
   },
 })
-
 
 </script>
 <style scoped lang="less">
