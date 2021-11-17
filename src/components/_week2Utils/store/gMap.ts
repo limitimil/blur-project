@@ -22,23 +22,27 @@ export default createStore({
       context.commit('setMap', map)
     },
     centerByMyLocation(context) {
-      const map = context.state.map
+      const { map } = context.state
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
-            };
+            }
 
-            map.setCenter(pos);
+            map.setCenter(pos)
           },
           (err) => {
-            handleLocationError(true, infoWindow, map.getCenter());
-          }
-        );
+            // @ts-ignore
+            console.err(err)
+            // @ts-ignore
+            console.err('get current position fail')
+          },
+        )
       } else {
-        console.err('browser don\'t support location');
+        // @ts-ignore
+        console.err('browser don\'t support location')
       }
     },
   },
