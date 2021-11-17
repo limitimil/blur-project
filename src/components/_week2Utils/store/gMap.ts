@@ -3,14 +3,22 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     map: undefined,
+    markers: [] as any[],
   },
   mutations: {
     setMap(state, map) {
       state.map = map
     },
+    appendMarker(state, marker) {
+      state.markers = [
+        ...state.markers,
+        marker,
+      ]
+    },
   },
   actions: {
     initMap(context, elementId) {
+      // @ts-ignore
       const map = new google.maps.Map(document.getElementById(elementId), {
         zoom: 11,
         center: { lat: 25.03357704438537, lng: 121.56165724984085 },
@@ -21,9 +29,19 @@ export default createStore({
       })
       context.commit('setMap', map)
     },
+    mark(context, position){
+      const { map } = context.state
+      console.log(position)
+      // @ts-ignore
+      const marker = new google.maps.Marker({
+        position,
+        map
+      })
+      context.commit('appendMarker', marker)
+    },
     centerByMyLocation(context) {
       const { map } = context.state
-      if (navigator.geolocation) {
+      if (map && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const pos = {
@@ -31,18 +49,20 @@ export default createStore({
               lng: position.coords.longitude,
             }
 
-            map.setCenter(pos)
+            // @ts-ignore
+            // eslint-disable-next-line no-unused-expressions
+            map?.setCenter(pos)
           },
           (err) => {
             // @ts-ignore
-            console.err(err)
+            console.error(err)
             // @ts-ignore
-            console.err('get current position fail')
+            console.error('get current position fail')
           },
         )
       } else {
         // @ts-ignore
-        console.err('browser don\'t support location')
+        console.error('browser don\'t support location')
       }
     },
   },
