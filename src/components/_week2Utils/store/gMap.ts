@@ -5,6 +5,9 @@ export default createStore({
     map: undefined,
     markers: [] as any[],
   },
+  getters: {
+    map: (state) => state.map,
+  },
   mutations: {
     setMap(state, map) {
       state.map = map
@@ -29,13 +32,13 @@ export default createStore({
       })
       context.commit('setMap', map)
     },
-    mark(context, position){
+    mark(context, position) {
       const { map } = context.state
       console.log(position)
       // @ts-ignore
       const marker = new google.maps.Marker({
         position,
-        map
+        map,
       })
       context.commit('appendMarker', marker)
     },
