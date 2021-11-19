@@ -16,7 +16,7 @@
   </q-card>
 </template>
 <script lang="ts">
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 import BadgeGroup from './BadgeGroup.vue'
 

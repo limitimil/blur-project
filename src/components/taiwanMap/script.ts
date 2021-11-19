@@ -2,7 +2,7 @@
 import $ from 'jquery'
 import lodash from 'lodash'
 import {
-  ref, computed, onMounted, watch,
+  ref, computed, onMounted, watch, defineComponent,
 } from 'vue'
 import CityService from '@/services/city'
 
@@ -164,7 +164,7 @@ const PLACE_DATA = [
   },
 ]
 
-export default {
+export default defineComponent({
   name: 'TaiwanMap',
   props: ['city'],
   emits: ['update:city'],
@@ -230,7 +230,7 @@ export default {
         ]
 
         if (code) {
-          const selectedNode = document.querySelector(`#taiwan-map path [data-name=${code}`)
+          const selectedNode = document.querySelector(`#taiwan-map path[data-name="${code}"]`)
           if (selectedNode) {
             selectedNode.setAttribute('selected-region', 'true')
           }
@@ -255,8 +255,10 @@ export default {
       emit('update:city', tdxCode)
     })
 
+    const city = computed(() => props.city)
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    watch(props.city, (newVal, oldVal) => {
+    watch(city, (newVal, oldVal) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [tdxCode, tdxName] = [
         // @ts-ignore
@@ -271,7 +273,7 @@ export default {
       if (code) {
         filter.value = code
 
-        const selectedNode = document.querySelector(`#taiwan-map path [data-name=${code}`)
+        const selectedNode = document.querySelector(`#taiwan-map path[data-name="${code}"]`)
         deSelectAll('selected-region')
         if (selectedNode) {
           selectedNode.setAttribute('selected-region', 'true')
@@ -285,4 +287,4 @@ export default {
       newArea,
     }
   },
-}
+})
