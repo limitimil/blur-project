@@ -3,9 +3,7 @@
     <div id="bike">
       <div class="row">
         <div class="col-12">
-          <q-card class="bike-card">
-            123
-          </q-card>
+          <BikeCard />
         </div>
       </div>
     </div>
@@ -13,12 +11,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import {
+  defineComponent, defineAsyncComponent, ref, computed,
+} from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'Bike',
   components: {
+    BikeCard: defineAsyncComponent(() => import('@/components/week2/BikeCard.vue')),
   },
   props: {
   },
