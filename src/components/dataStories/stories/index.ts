@@ -1,4 +1,5 @@
 import TourismService from '@/services/tourism'
+import BikeStationService from '@/services/bikeStation'
 
 const topFiveRecordWithOffsetTwo = async () => {
   const service = new TourismService()
@@ -65,6 +66,12 @@ const topFiveRecordInCollectionWithKeywordAndClassName = async () => {
   service.byKeyword('美食')
   return service.fetch()
 }
+const topFiveBikeStationInTaipei = async () => {
+  const service = new BikeStationService()
+  service.top(5)
+  service.setCity('Taipei')
+  return service.fetch()
+}
 export default {
   topFiveRecordWithOffsetTwo,
   topFiveRecordWithOffsetTwoInTaipei,
@@ -75,4 +82,5 @@ export default {
   topFiveRecordWithOffsetTwoWithCityAndKeyword,
   topFiveRecordInCollection,
   topFiveRecordInCollectionWithKeywordAndClassName, // Url Too Long
+  topFiveBikeStationInTaipei,
 }
