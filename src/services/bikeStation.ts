@@ -1,5 +1,6 @@
 import BikeStation from '@/data-fetch/bikeStation'
 import LocalCollection from '@/data-fetch/localCollection'
+import TdxPosition from '@/interface/TdxPosition'
 
 const calcSkip = (count: number, offset: number) => offset * count
 export default class BikeStationService {

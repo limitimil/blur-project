@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios'
 import lodash from 'lodash'
 import axios from '@/axios'
+import TdxPosition from '@/interface/TdxPosition'
 import TdxArgument from './interface/TdxArgument'
 import { TdxFilter, TdxStatements } from './tdx/filterDSL'
 
