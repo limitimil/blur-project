@@ -3,4 +3,5 @@ export default interface TdxArgument {
   $top?: number
   $skip?: number
   $filter?: string
+  $spatialFilter?: string
 }
