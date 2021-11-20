@@ -60,6 +60,7 @@ export default {
     return {
       usefulLinks: [
         '/component-stories/GoogleMap',
+        '/data-stories/topFiveBikeStationInTaipei',
         '/data-stories/topFiveRecordInCollection',
         '/vuex-stories/travel',
       ],
