@@ -5,6 +5,12 @@ import TdxPosition from '@/interface/TdxPosition'
 import TdxArgument from './interface/TdxArgument'
 import { TdxFilter, TdxStatements } from './tdx/filterDSL'
 
+const FILEDS_FOR_KEYWORD = [
+  'StationName/Zh_tw',
+  'StationName/En',
+  'StationAddress/Zh_tw',
+  'StationAddress/En',
+]
 export default class BikeStation {
   private arg: TdxArgument = {}
 
@@ -40,7 +46,7 @@ export default class BikeStation {
   }
 
   public withKeyword(keyword: string): BikeStation {
-    this.filter.regist(TdxStatements.filterKeyword(keyword))
+    this.filter.regist(TdxStatements.filterKeyword(keyword, FILEDS_FOR_KEYWORD))
     return this
   }
 

@@ -4,6 +4,19 @@ import axios from '@/axios'
 import TdxArgument from './interface/TdxArgument'
 import { TdxFilter, TdxStatements } from './tdx/filterDSL'
 
+const FILEDS_FOR_KEYWORD = [
+  'Name',
+  'DescriptionDetail',
+  'Description',
+  'Address',
+  'Class1',
+  'Class2',
+  'Class3',
+  'Level',
+  'Remarks',
+  'Keyword',
+  'City',
+];
 export default class Tourism {
   private arg: TdxArgument = {}
 
@@ -39,7 +52,7 @@ export default class Tourism {
   }
 
   public withKeyword(keyword: string): Tourism {
-    this.filter.regist(TdxStatements.filterKeyword(keyword))
+    this.filter.regist(TdxStatements.filterKeyword(keyword, FILEDS_FOR_KEYWORD))
     return this
   }
 
