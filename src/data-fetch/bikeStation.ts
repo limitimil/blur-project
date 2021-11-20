@@ -48,6 +48,16 @@ export default class BikeStation {
     return this
   }
 
+  public withNearBy(position: TdxPosition): BikeStation {
+    const key = 'StationPosition'
+    const distance = 200
+    this.arg = {
+      ...this.arg,
+      $spatialFilter: `nearBy(${key}, ${position.PositionLat}, ${position.PositionLon}, ${distance})`,
+    }
+    return this
+  }
+
   public async getBikeStationInvoker(): Promise<any> {
     if (this.filter.getLength()) {
       this.arg = {
