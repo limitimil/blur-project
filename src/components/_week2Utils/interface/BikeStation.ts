@@ -8,8 +8,8 @@ enum ServiceStatus {
   PauseService = 2,
 }
 interface TdxPosition {
-  PositionLon: number,
-  PositionLat: number,
+  positionLon: number,
+  positionLat: number,
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
