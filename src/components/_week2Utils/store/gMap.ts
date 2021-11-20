@@ -1,4 +1,6 @@
 import { createStore } from 'vuex'
+import MarkConfig from '../interface/MarkConfig'
+import BikeStation from '../interface/BikeStation'
 
 export default createStore({
   state: {
@@ -31,6 +33,13 @@ export default createStore({
         streetViewControl: false,
       })
       context.commit('setMap', map)
+    },
+    markStation(context, bikeStation: BikeStation) {
+      const latlnt = {
+        lat: bikeStation.stationPosition.positionLat,
+        lnt: bikeStation.stationPosition.positionLon,
+      }
+      context.dispatch('mark', latlnt)
     },
     mark(context, position) {
       const { map } = context.state
