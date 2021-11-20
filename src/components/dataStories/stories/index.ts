@@ -72,6 +72,16 @@ const topFiveBikeStationInTaipei = async () => {
   service.setCity('Taipei')
   return service.fetch()
 }
+const topFiveBikeStationNearBy101 = async () => {
+  const service = new BikeStationService()
+  service.top(5)
+  service.setCity('Taipei')
+  service.setNearBy({
+    PositionLon: 121.56165724984085,
+    PositionLat: 25.03357704438537,
+  })
+  return service.fetch()
+}
 export default {
   topFiveRecordWithOffsetTwo,
   topFiveRecordWithOffsetTwoInTaipei,
@@ -83,4 +93,5 @@ export default {
   topFiveRecordInCollection,
   topFiveRecordInCollectionWithKeywordAndClassName, // Url Too Long
   topFiveBikeStationInTaipei,
+  topFiveBikeStationNearBy101,
 }
