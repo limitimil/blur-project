@@ -15,6 +15,8 @@ export default class BikeStationService {
 
   private isCollection: boolean = false;
 
+  private nearByPosition: TdxPosition | undefined = undefined;
+
   public async fetch(): Promise<any> {
     const arg = { $top: this.count, $skip: calcSkip(this.count, this.offset) }
     let builder = new BikeStation().withArg(arg)
@@ -31,6 +33,9 @@ export default class BikeStationService {
     }
     if (this.city) {
       builder = builder.withCity(this.city)
+    }
+    if (this.nearByPosition) {
+      builder = builder.withNearBy(this.nearByPosition)
     }
     if (this.keyword) {
       builder = builder.withKeyword(this.keyword)
@@ -80,6 +85,10 @@ export default class BikeStationService {
 
   public setKeyword(keyword: string | undefined): void {
     this.keyword = keyword
+  }
+
+  public setNearBy(position: TdxPosition): void {
+    this.nearByPosition = position
   }
 
   // TODO: deprecate this interface
