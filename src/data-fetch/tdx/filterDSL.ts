@@ -31,9 +31,9 @@ export class TdxStatements {
     return lodash.map(TdxConst.KEYS_FOR_CLASS, buildBlock)
   }
 
-  static filterKeyword(keyword: string): string[] {
+  static filterKeyword(keyword: string, fields: string[]): string[] {
     const buildBlock = (field: string) => `contains(${field}, '${keyword}')`
-    return lodash.map(TdxConst.KEYS_FOR_KEYWORD, buildBlock)
+    return lodash.map(fields, buildBlock)
   }
 
   static filterIdSubset(subset: string[]): string[] {
