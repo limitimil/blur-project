@@ -6,9 +6,10 @@
   - data-fetcher
   - service
 # Plan
-- get data from data fetcher
+- get data from data fetcher :ok:
     - get top
     - search with latlnt
-- re-arrange data story
+    - search with latlnt and keyword
+- re-arrange data story :ok:
 - setup data command store
 
