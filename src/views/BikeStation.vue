@@ -2,7 +2,7 @@
   <div class="fit row justify-between  q-py-md q-px-lg">
     <div class="self-start">search bar</div>
     <div class="self-end">
-      <a href="" @click="toMyLocation">
+      <a href="javascript:;" @click="toMyLocation">
         <img src="@/assets/icon/gpsLocationCta.svg" style="width: 95px; height: 95px;" />
       </a>
     </div>
