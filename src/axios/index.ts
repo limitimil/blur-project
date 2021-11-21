@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // Reference: https://github.com/ptxmotc/Sample-code/blob/master/JavaScript/Sample.js
 function GetAuthorizationHeader() {
-  const AppID = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF'
-  const AppKey = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF'
+  const AppID = '7a42d8f043dd4b31b470d828b5ebe7b5'
+  const AppKey = 'MUCyuFdq0DYPrucCA1E1Y7cLKhM'
 
   const GMTString = new Date().toUTCString()
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
