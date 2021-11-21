@@ -1,13 +1,7 @@
 <template>
-  <div>
-    <div> Hello World </div>
-    <div> Hello World </div>
-    <div> Hello World </div>
-    <div> Hello World </div>
-    <div> Hello World </div>
-    <div> Hello World </div>
-    <div> Hello World </div>
-    <div> Hello World </div>
+  <div class="fit row justify-between  q-py-md q-px-lg">
+    <div class="self-start">search bar</div>
+    <div class="self-end">center by gps</div>
   </div>
 </template>
 <script lang="ts">
