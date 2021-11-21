@@ -41,7 +41,7 @@ import bikeStationStore from '@/store/bikeStation'
 import Card from '@/components/_storyUtils/Card.vue'
 
 export default {
-  name: 'GoogleMap',
+  name: 'BikeStation',
   components: {
     GMap,
     Card,
