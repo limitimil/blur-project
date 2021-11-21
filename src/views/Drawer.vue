@@ -62,7 +62,7 @@ export default {
         '/component-stories/GoogleMap',
         '/data-stories/topFiveBikeStationNearBy101',
         '/data-stories/topFiveBikeStationNearBy101WithKeyword',
-        '/vuex-stories/travel',
+        '/vuex-stories/Travel',
       ],
     }
   },
