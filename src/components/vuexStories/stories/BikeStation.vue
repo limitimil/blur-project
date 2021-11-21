@@ -15,7 +15,7 @@
       >City: {{ city }}</q-checkbox
     >
     <q-checkbox
-      @update:model-value="updateQueryMethods.className"
+      @update:model-value="updateQueryMethods.usePosition"
       v-model="usePosition"
       >Position: {{ position }}</q-checkbox
     >
@@ -30,30 +30,47 @@
 <script lang="ts">
 import { ref, onMounted } from 'vue'
 import GMap from '@/components/_week2Utils/gMap.vue'
-import store from '@/components/_week2Utils/store/gMap'
+import gMapStore from '@/components/_week2Utils/store/gMap'
+import bikeStationStore from '@/store/bikeStation'
+
 export default {
   name: 'GoogleMap',
   components: {
     GMap,
   },
   setup() {
-    const center = ref(undefined)
+    const position = ref(undefined)
     const usePosition = ref(false)
+    const toMyLocation = () => gMapStore.dispatch('centerByMyLocation')
+    const calculateCenter = () => { position.value = gMapStore.getters.map.getCenter() }
+
     onMounted(() => {
-      center.value = store.getters.map.getCenter()
+      position.value = gMapStore.getters.map.getCenter()
     })
     return {
-      center,
       usePosition,
       keyword: ref(null),
       city: ref(null),
-      position: ref(null),
-      calculateCenter: () => { center.value = store.getters.map.getCenter() },
-      toMyLocation: () => store.dispatch('centerByMyLocation'),
+      position,
+
+      // methods
+      toMyLocation,
+      calculateCenter,
+
+      // method group
       updateQueryMethods: {
-        city: (value: string) => store.commit('appendQuery', { city: value }),
-        className: (value: string) => store.commit('appendQuery', { className: value }),
-        keyword: (value: string) => store.commit('appendQuery', { keyword: value }),
+        city: (value: string) => bikeStationStore.commit('appendQuery', { city: value }),
+        keyword: (value: string) => bikeStationStore.commit('appendQuery', { keyword: value }),
+        usePosition: (value: any) => {
+          if(value){
+            calculateCenter()
+            bikeStationStore.commit('appendQuery', { position })
+          } else {
+            const query = bikeStationStore.getters.query
+            delete query.nearBy
+            bikeStationStore.commit('setQuery', { ...query })
+          }
+        },
       },
     }
   },
