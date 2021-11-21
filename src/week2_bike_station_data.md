@@ -5,6 +5,12 @@
 - refactor with extracting base class
   - data-fetcher
   - service
+# Dynamic Task
+- refactor vuexStore Story to fit different scenario
+- fulfill the following story
+  - whenever user set current position, refresh the search result
+  - user is able to enter their wanted keyword and press search, then this user will get a list of result as well as show them on the Google Map
+  -
 # Plan
 - get data from data fetcher :ok:
     - get top
