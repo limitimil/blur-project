@@ -65,7 +65,7 @@ export default class BikeStation {
     return this
   }
 
-  public async getBikeStationInvoker(): Promise<any> {
+  public async invoke(): Promise<any> {
     if (this.filter.getLength()) {
       this.arg = {
         ...this.arg,
