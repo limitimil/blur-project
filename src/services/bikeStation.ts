@@ -88,7 +88,7 @@ export default class BikeStationService {
     this.keyword = keyword
   }
 
-  public setNearBy(position: TdxPosition): void {
+  public setNearBy(position: TdxPosition | undefined): void {
     this.nearByPosition = position
   }
 
