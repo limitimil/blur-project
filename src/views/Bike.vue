@@ -3,7 +3,15 @@
     <div id="bike">
       <div class="row">
         <div class="col-12">
+          <div class="logo flex justify-center">
+            <img src="@/assets/logo/bike.svg" width="480"/>
+          </div>
           <BikeCard />
+          <div class="flex justify-evenly">
+            <img src="@/assets/icon/station.svg" width="150"/>
+            <img src="@/assets/icon/road.svg" width="150"/>
+            <img src="@/assets/icon/view.svg" width="150"/>
+          </div>
         </div>
       </div>
     </div>
@@ -25,9 +33,8 @@ export default defineComponent({
   },
 })
 </script>
-<style>
-.bike-card {
-  width: 335px;
-  height: 160px;
+<style lang="less">
+.logo {
+  margin-top: 120px;
 }
 </style>
