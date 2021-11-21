@@ -7,7 +7,7 @@
       @click="()=>{console.log('clicked')}"
       icon="menu"
       ></q-btn>
-    <q-input>
+    <q-input v-model="keyword">
       <template v-slot:append>
         <span class="q-mr-xs">|</span>
         <a href="javascript:;" @click="top">
@@ -26,7 +26,7 @@
   </main>
 </template>
 <script lang="ts">
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import gMapStore from '@/components/_week2Utils/store/gMap'
 import bikeStationStore from '@/store/bikeStation'
@@ -44,6 +44,7 @@ export default {
   // @ts-ignore
   setup() {
     const router = useRoute()
+    const keyword = ref('')
     const calculateCenter = () => gMapStore.getters.map.getCenter()
     onMounted(() => {
       bikeStationStore.commit('appendQuery', { city: router.query.city || DEFAULT_CITY })
@@ -53,9 +54,13 @@ export default {
       bikeStationStore,
       // computed
       data: computed(() => bikeStationStore.getters.content),
+      keyword,
 
       // methods
-      top: () => bikeStationStore.dispatch('top'),
+      top: () => {
+        bikeStationStore.commit('appendQuery', { keyword })
+        bikeStationStore.dispatch('top')
+      },
       toMyLocation: async () => {
         await gMapStore.dispatch('centerByMyLocation')
         const currentPosition = calculateCenter()
@@ -75,7 +80,7 @@ main {
   max-width: 50vw;
   .card-container {
     max-height: 50vh;
-    overflow: scroll;
+    overflow-y: auto;
   }
 }
 .gps-cta {
