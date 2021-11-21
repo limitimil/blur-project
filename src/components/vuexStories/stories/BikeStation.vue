@@ -3,7 +3,7 @@
     <q-checkbox
       @update:model-value="updateQueryMethods.keyword"
       v-model="keyword"
-      true-value="美食"
+      true-value="四四南村"
       :false-value="null"
       >Keyword: {{ keyword }}</q-checkbox
     >
@@ -19,6 +19,8 @@
       v-model="usePosition"
       >Position: {{ position }}</q-checkbox
     >
+  </div>
+  <div class="row">
     <div class="col"><q-btn @click="toMyLocation">My Location</q-btn></div>
     <div class="col"><q-btn @click="calculateCenter">Calculate Center</q-btn></div>
     <div class="col">Center: {{position}}</div>
@@ -36,13 +38,23 @@ export default {
   },
   setup() {
     const center = ref(undefined)
+    const usePosition = ref(false)
     onMounted(() => {
       center.value = store.getters.map.getCenter()
     })
     return {
       center,
+      usePosition,
+      keyword: ref(null),
+      city: ref(null),
+      position: ref(null),
       calculateCenter: () => { center.value = store.getters.map.getCenter() },
       toMyLocation: () => store.dispatch('centerByMyLocation'),
+      updateQueryMethods: {
+        city: (value: string) => store.commit('appendQuery', { city: value }),
+        className: (value: string) => store.commit('appendQuery', { className: value }),
+        keyword: (value: string) => store.commit('appendQuery', { keyword: value }),
+      },
     }
   },
 }
