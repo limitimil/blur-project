@@ -1,22 +1,44 @@
 <template>
-  <div class="search-bar q-mt-md q-ml-lg">search bar</div>
-  <div class="gps-cta q-mb-md q-mr-lg">
+  <main class="search-bar q-mt-md q-ml-lg row">
+    <q-btn
+      flat
+      dense
+      round
+      @click="()=>{console.log('clicked')}"
+      icon="menu"
+      ></q-btn>
+    <q-input>
+      <template v-slot:append>
+        <span class="q-mr-xs">|</span>
+        <a href="javascript:;" @click="top">
+          <q-icon name="search"/>
+        </a>
+      </template>
+    </q-input>
+    <div class="card-container">
+      <Card  v-for="item in data" :key="item.ID" :value="item" />
+    </div>
+  </main>
+  <main class="gps-cta q-mb-md q-mr-lg">
     <a href="javascript:;" @click="toMyLocation">
       <img src="@/assets/icon/gpsLocationCta.svg" style="width: 95px; height: 95px;" />
     </a>
-  </div>
+  </main>
 </template>
 <script lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import gMapStore from '@/components/_week2Utils/store/gMap'
 import bikeStationStore from '@/store/bikeStation'
+import Card from '@/components/_storyUtils/Card.vue'
 
 const DEFAULT_CITY = 'Taipei'
 export default {
   name: 'LayoutDefault',
 
-  components: {},
+  components: {
+    Card,
+  },
   props: ['city'],
 
   // @ts-ignore
@@ -29,6 +51,11 @@ export default {
 
     return {
       bikeStationStore,
+      // computed
+      data: computed(() => bikeStationStore.getters.content),
+
+      // methods
+      top: () => bikeStationStore.dispatch('top'),
       toMyLocation: async () => {
         await gMapStore.dispatch('centerByMyLocation')
         const currentPosition = calculateCenter()
@@ -40,9 +67,16 @@ export default {
 }
 </script>
 <style scoped lang="less">
-div {
+main {
   z-index: 1000003;
   position: absolute;
+}
+.search-bar {
+  max-width: 50vw;
+  .card-container {
+    max-height: 50vh;
+    overflow: scroll;
+  }
 }
 .gps-cta {
   right: 0;
