@@ -19,7 +19,6 @@
   </q-layout>
 </template>
 <script lang="ts">
-import { ref } from 'vue'
 import GMap from '@/components/_week2Utils/gMap.vue'
 
 export default {
@@ -31,7 +30,6 @@ export default {
 
   setup() {
     return {
-      leftDrawerOpen: ref(false),
     }
   },
 }
@@ -62,5 +60,3 @@ export default {
  background-color: hsla(240, 7%, 47%, 1);
 }
 </style>
-
-
