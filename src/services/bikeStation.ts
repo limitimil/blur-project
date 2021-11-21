@@ -57,9 +57,9 @@ export default class BikeStationService {
    * and I think I can find a better way to make this property extraction better.
   */
   public getStatus(): any {
-    const { city, keyword, className } = this
+    const { city, keyword, nearByPosition } = this
     return {
-      city, keyword, className,
+      city, keyword, nearByPosition,
     }
   }
 
