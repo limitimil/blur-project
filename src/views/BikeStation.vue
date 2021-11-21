@@ -1,42 +1,45 @@
 <template>
   <div class="fit row justify-between  q-py-md q-px-lg">
     <div class="self-start">search bar</div>
-    <div class="self-end">center by gps</div>
+    <div class="self-end">
+      <a href="" @click="toMyLocation">
+        <img src="@/assets/icon/gpsLocationCta.svg" style="width: 95px; height: 95px;" />
+      </a>
+    </div>
   </div>
 </template>
 <script lang="ts">
-import { ref } from 'vue'
+import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import gMapStore from '@/components/_week2Utils/store/gMap'
+import bikeStationStore from '@/store/bikeStation'
 
+const DEFAULT_CITY = 'Taipei'
 export default {
   name: 'LayoutDefault',
 
-  components: {
-  },
+  components: {},
+  props: ['city'],
 
+  // @ts-ignore
   setup() {
+    const router = useRoute()
+    const calculateCenter = () => gMapStore.getters.map.getCenter()
+    onMounted(() => {
+      bikeStationStore.commit('appendQuery', { city: router.query.city || DEFAULT_CITY })
+    })
+
     return {
-      leftDrawerOpen: ref(false),
+      bikeStationStore,
+      toMyLocation: async () => {
+        await gMapStore.dispatch('centerByMyLocation')
+        const currentPosition = calculateCenter()
+        bikeStationStore.commit('appendQuery', { position: currentPosition })
+        return bikeStationStore.dispatch('top')
+      },
     }
   },
 }
-
 </script>
 <style scoped lang="less">
-.hack1{
- background-color: hsla(208, 26%, 75%, 1);
-}
-.hack2{
- background-color: hsla(17, 25%, 33%, 1);
-}
-.hack3{
- background-color: hsla(203, 16%, 96%, 1);
-}
-.hack4{
- background-color: hsla(214, 15%, 62%, 1);
-}
-.hack5{
- background-color: hsla(240, 7%, 47%, 1);
-}
 </style>
-
-
