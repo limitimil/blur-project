@@ -42,31 +42,32 @@ export default createStore({
       })
       context.commit('appendMarker', marker)
     },
-    centerByMyLocation(context) {
+    centerByMyLocation(context): any {
       const { map } = context.state
       if (map && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            }
+        return new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              }
 
-            // @ts-ignore
-            // eslint-disable-next-line no-unused-expressions
-            map?.setCenter(pos)
-          },
-          (err) => {
-            // @ts-ignore
-            console.error(err)
-            // @ts-ignore
-            console.error('get current position fail')
-          },
-        )
-      } else {
-        // @ts-ignore
-        console.error('browser don\'t support location')
+              // @ts-ignore
+              // eslint-disable-next-line no-unused-expressions
+              map?.setCenter(pos)
+              return resolve(pos)
+            },
+            (err) => {
+              // @ts-ignore
+              console.error(err)
+              return reject(Error('get current position fail'))
+            },
+          )
+        })
       }
+      // @ts-ignore
+      return Promise.reject(Error('browser don\'t support location'))
     },
   },
   modules: {
