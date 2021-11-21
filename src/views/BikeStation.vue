@@ -1,11 +1,9 @@
 <template>
-  <div class="fit row justify-between  q-py-md q-px-lg">
-    <div class="self-start">search bar</div>
-    <div class="self-end">
-      <a href="javascript:;" @click="toMyLocation">
-        <img src="@/assets/icon/gpsLocationCta.svg" style="width: 95px; height: 95px;" />
-      </a>
-    </div>
+  <div class="search-bar q-mt-md q-ml-lg">search bar</div>
+  <div class="gps-cta q-mb-md q-mr-lg">
+    <a href="javascript:;" @click="toMyLocation">
+      <img src="@/assets/icon/gpsLocationCta.svg" style="width: 95px; height: 95px;" />
+    </a>
   </div>
 </template>
 <script lang="ts">
@@ -42,4 +40,12 @@ export default {
 }
 </script>
 <style scoped lang="less">
+div {
+  z-index: 1000003;
+  position: absolute;
+}
+.gps-cta {
+  right: 0;
+  bottom: 0;
+}
 </style>
