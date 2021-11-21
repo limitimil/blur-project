@@ -7,7 +7,7 @@ const MAX_CONTENT_COUNT = 9
 interface BikeStationQuery {
   city?: string;
   keyword?: string;
-  position?: number[]; // lat, lnt
+  position?: any; // lat, lng
 }
 export default createStore({
   state: {
@@ -27,8 +27,8 @@ export default createStore({
       q.city && state.commandService.setCity(q.city)
       q.keyword && state.commandService.setKeyword(q.keyword)
       q.position && state.commandService.setNearBy({
-        PositionLat: q.position[0],
-        PositionLon: q.position[1],
+        PositionLat: q.position.lat(),
+        PositionLon: q.position.lng(),
       })
     },
     setQuery(state, q: BikeStationQuery) {
@@ -36,13 +36,16 @@ export default createStore({
       state.commandService.setKeyword(q.keyword)
 
       // @ts-ignore
-      const tdxPosition: undefined | TdxPosition = q?.position?.length > 2 ? undefined : {
+      const tdxPosition: undefined | TdxPosition = q?.position && q.position.length > 2 ? {
         // @ts-ignore
         PositionLat: q.position[0],
         // @ts-ignore
         PositionLon: q.position[1],
-      }
+      } : undefined
       state.commandService.setNearBy(tdxPosition)
+    },
+    setContent(state, content) {
+      state.content = content
     },
   },
   actions: {
