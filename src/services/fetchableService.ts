@@ -1,8 +1,8 @@
-import Tourism from '@/data-fetch/tourism'
 import LocalCollection from '@/data-fetch/localCollection'
+import TdxPosition from '@/interface/TdxPosition'
 
 const calcSkip = (count: number, offset: number) => offset * count
-export default class TourismService {
+export default abstract class FetchableService {
   private count: number = 30;
 
   private offset: number = 0;
@@ -15,9 +15,15 @@ export default class TourismService {
 
   private isCollection: boolean = false;
 
+  private nearByPosition: TdxPosition | undefined = undefined;
+
+  // TODO: set type name on this variable
+  protected abstract builderClass: any;
+
   public async fetch(): Promise<any> {
     const arg = { $top: this.count, $skip: calcSkip(this.count, this.offset) }
-    let builder = new Tourism().withArg(arg)
+    // eslint-disable-next-line new-cap
+    let builder = new this.builderClass().withArg(arg)
     if (this.isCollection) {
       const collectedIds = new LocalCollection().getCollectedSceneSpotIds()
       if (collectedIds.length) {
@@ -32,10 +38,13 @@ export default class TourismService {
     if (this.city) {
       builder = builder.withCity(this.city)
     }
+    if (this.nearByPosition) {
+      builder = builder.withNearBy(this.nearByPosition)
+    }
     if (this.keyword) {
       builder = builder.withKeyword(this.keyword)
     }
-    return builder.getScenicSpotInvoker()
+    return builder.invoke()
   }
 
   public async clean(): Promise<any> {
@@ -51,9 +60,9 @@ export default class TourismService {
    * and I think I can find a better way to make this property extraction better.
   */
   public getStatus(): any {
-    const { city, keyword, className } = this
+    const { city, keyword, nearByPosition } = this
     return {
-      city, keyword, className,
+      city, keyword, nearByPosition,
     }
   }
 
@@ -80,6 +89,10 @@ export default class TourismService {
 
   public setKeyword(keyword: string | undefined): void {
     this.keyword = keyword
+  }
+
+  public setNearBy(position: TdxPosition | undefined): void {
+    this.nearByPosition = position
   }
 
   // TODO: deprecate this interface

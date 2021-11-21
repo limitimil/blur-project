@@ -16,8 +16,8 @@ import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import Stories from './stories'
-import Card from '@/components/_week1Utils/Card.vue'
-// import Card from '@/components/_storyUtils/Card.vue'
+// import Card from '@/components/_week1Utils/Card.vue'
+import Card from '@/components/_storyUtils/Card.vue'
 
 export default {
   name: 'DataStories',

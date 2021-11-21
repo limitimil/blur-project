@@ -1,23 +1,17 @@
 import { AxiosResponse } from 'axios'
 import lodash from 'lodash'
 import axios from '@/axios'
+import TdxPosition from '@/interface/TdxPosition'
 import TdxArgument from './interface/TdxArgument'
 import { TdxFilter, TdxStatements } from './tdx/filterDSL'
 
 const FILEDS_FOR_KEYWORD = [
-  'Name',
-  'DescriptionDetail',
-  'Description',
-  'Address',
-  'Class1',
-  'Class2',
-  'Class3',
-  'Level',
-  'Remarks',
-  'Keyword',
-  'City',
+  'StationName/Zh_tw',
+  'StationName/En',
+  'StationAddress/Zh_tw',
+  'StationAddress/En',
 ]
-export default class Tourism {
+export default class BikeStation {
   private arg: TdxArgument = {}
 
   private city: string | undefined = undefined;
@@ -36,28 +30,38 @@ export default class Tourism {
   }
 
   // TODO: this builder is not able to collaberate with withKeyword, withClassName
-  public withSubset(subset: string[]) :Tourism {
+  public withSubset(subset: string[]) :BikeStation {
     this.filter.regist(TdxStatements.filterIdSubset(subset))
     return this
   }
 
-  public withArg(arg: TdxArgument): Tourism {
+  public withArg(arg: TdxArgument): BikeStation {
     this.arg = { ...arg }
     return this
   }
 
-  public withCity(city: string): Tourism {
+  public withCity(city: string): BikeStation {
     this.city = city
     return this
   }
 
-  public withKeyword(keyword: string): Tourism {
+  public withKeyword(keyword: string): BikeStation {
     this.filter.regist(TdxStatements.filterKeyword(keyword, FILEDS_FOR_KEYWORD))
     return this
   }
 
-  public withClassName(className: string): Tourism {
+  public withClassName(className: string): BikeStation {
     this.filter.regist(TdxStatements.filterClassName(className))
+    return this
+  }
+
+  public withNearBy(position: TdxPosition): BikeStation {
+    const key = 'StationPosition'
+    const distance = 200
+    this.arg = {
+      ...this.arg,
+      $spatialFilter: `nearBy(${key}, ${position.PositionLat}, ${position.PositionLon}, ${distance})`,
+    }
     return this
   }
 
@@ -68,84 +72,20 @@ export default class Tourism {
         $filter: this.filter.combineJobs(),
       }
     }
-    console.log(this.arg.$filter)
-    if (this.city) {
-      return this.getScenicSpotByCity(this.arg, this.city)
+    if (!this.city) {
+      throw Error('To get bike station, please include city information in your query')
     }
-    return this.getScenicSpot(this.arg)
+    return this.getBikeStationByCity(this.arg, this.city)
   }
 
-  private async getScenicSpotByCity(arg: TdxArgument, city: string): Promise<any> {
-    const url = `MOTC/v2/Tourism/ScenicSpot/${city}`
+  private async getBikeStationByCity(arg: TdxArgument, city: string): Promise<any> {
+    const url = `MOTC/v2/Bike/Station/${city}`
     const params = {
       $format: 'JSON',
       ...arg,
     }
     const res: AxiosResponse<any> = await axios.get(url, { params })
     return res.data
-  }
-
-  private async getScenicSpot(arg: TdxArgument): Promise<any> {
-    const url = 'MOTC/v2/Tourism/ScenicSpot'
-    const params = {
-      $format: 'JSON',
-      ...arg,
-    }
-    const res: AxiosResponse<any> = await axios.get(url, { params })
-    return res.data
-  }
-
-  public async getScenicSpotByKeywordCity(
-    arg: TdxArgument, keyword: string, city: string,
-  ): Promise<any> {
-    const fields = [
-      'Name',
-      'DescriptionDetail',
-      'Description',
-      'Address',
-      'Class1',
-      'Class2',
-      'Class3',
-      'Level',
-      'Remarks',
-      'Keyword',
-      'City',
-    ]
-    const newArg = {
-      ...arg,
-      ...this.fieldsByKeyword(keyword, fields),
-    }
-    return this.getScenicSpotByCity(newArg, city)
-  }
-
-  public async getScenicSpotByKeyword(arg: TdxArgument, keyword: string): Promise<any> {
-    const fields = [
-      'Name',
-      'DescriptionDetail',
-      'Description',
-      'Address',
-      'Class1',
-      'Class2',
-      'Class3',
-      'Level',
-      'Remarks',
-      'Keyword',
-      'City',
-    ]
-    const newArg = {
-      ...arg,
-      ...this.fieldsByKeyword(keyword, fields),
-    }
-    return this.getScenicSpot(newArg)
-  }
-
-  // TODO: consider city, keyword, classname
-  public async getScenicSpotByClassName(arg: TdxArgument, className: string): Promise<any> {
-    const newArg = {
-      ...arg,
-      ...this.byClassName(className),
-    }
-    return this.getScenicSpot(newArg)
   }
 
   // TODO: find a better place to reside these methods

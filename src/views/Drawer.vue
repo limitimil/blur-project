@@ -60,8 +60,9 @@ export default {
     return {
       usefulLinks: [
         '/component-stories/GoogleMap',
-        '/data-stories/topFiveRecordInCollection',
-        '/vuex-stories/travel',
+        '/data-stories/topFiveBikeStationNearBy101',
+        '/data-stories/topFiveBikeStationNearBy101WithKeyword',
+        '/vuex-stories/Travel',
       ],
     }
   },
