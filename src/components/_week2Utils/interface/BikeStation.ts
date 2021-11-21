@@ -23,5 +23,3 @@ export default interface BikeStation {
   serviceType: ServiceType,
   serviceStatus: ServiceStatus,
 }
-
-

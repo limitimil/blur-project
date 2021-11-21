@@ -7,4 +7,3 @@ enum AvailableType{
 export default interface MarkConfig {
   availableType: AvailableType
 }
-

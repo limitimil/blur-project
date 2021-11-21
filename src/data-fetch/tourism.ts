@@ -16,7 +16,7 @@ const FILEDS_FOR_KEYWORD = [
   'Remarks',
   'Keyword',
   'City',
-];
+]
 export default class Tourism {
   private arg: TdxArgument = {}
 
