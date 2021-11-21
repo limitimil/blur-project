@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       usefulLinks: [
-        '/data-stories/topFiveRecordWithOffsetTwo',
+        '/component-stories/GoogleMap',
         '/data-stories/topFiveRecordInCollection',
         '/vuex-stories/travel',
       ],
