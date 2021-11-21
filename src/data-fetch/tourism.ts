@@ -61,7 +61,7 @@ export default class Tourism {
     return this
   }
 
-  public async getScenicSpotInvoker(): Promise<any> {
+  public async invoke(): Promise<any> {
     if (this.filter.getLength()) {
       this.arg = {
         ...this.arg,
