@@ -40,10 +40,6 @@ export default {
   position: absolute;
   height: 100%;
 }
-.overlay-google-map {
-  z-index: 1000003;
-  position: absolute;
-}
 .hack1{
  background-color: hsla(208, 26%, 75%, 1);
 }
