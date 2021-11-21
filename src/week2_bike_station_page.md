@@ -1,8 +1,12 @@
 # Plan
-- design the router
-- page layout
+- design the router :ok:
+- page layout :ok:
 - accomplish basic user flow
-  - go to current gps location and search for bike station
-  - search for bikestation without spatial query
+  - go to current gps location and search for bike station :ok:
+  - search for bikestation without spatial query :ok:
   - center map by selected bikestation
+      - depends on bike card
 - setup future goals
+  - show marker by bike station
+  - auto scale for marker information
+  - search nearby bike station nearby other bike station again
