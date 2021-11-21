@@ -32,7 +32,7 @@ import { useStore } from 'vuex'
 import Card from '@/components/_storyUtils/Card.vue'
 
 export default {
-  name: 'LayoutDefault',
+  name: 'Travel',
 
   components: {
     Card,
