@@ -7,22 +7,6 @@ import TdxOperations from './operations'
 
 class TdxConst {
   static KEYS_FOR_CLASS = ['Class1', 'Class2', 'Class3'];
-
-  static KEYS_FOR_KEYWORD = [
-    'Name',
-    'DescriptionDetail',
-    'Description',
-    'Address',
-    'Class1',
-    'Class2',
-    'Class3',
-    'Level',
-    'Remarks',
-    'Keyword',
-    'City',
-  ];
-
-  static KEY_FOR_ID = 'ID';
 }
 
 export class TdxStatements {
@@ -36,8 +20,8 @@ export class TdxStatements {
     return lodash.map(fields, buildBlock)
   }
 
-  static filterIdSubset(subset: string[]): string[] {
-    const buildBlock = (key: string) => `ID eq '${key}'`
+  static filterIdSubset(subset: string[], key = 'ID'): string[] {
+    const buildBlock = (id: string) => `${key} eq '${id}'`
     return lodash.map(subset, buildBlock)
   }
 }
