@@ -31,6 +31,21 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../components/HelloWorld.vue'),
   },
   {
+    path: '/week2/workflow',
+    name: 'SmileBikeWorkflow',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "week2-workflow" */ '@/views/SmileBikeWorkflow.vue'),
+    children: [
+      {
+        path: 'bike-station',
+        name: 'BikeStation',
+        component: () => import(/* webpackChunkName: "week2-workflow" */ '@/views/BikeStation.vue'),
+      },
+    ],
+  },
+  {
     path: '/week3',
     name: 'Week3',
     // route level code-splitting

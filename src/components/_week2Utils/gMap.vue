@@ -27,8 +27,8 @@ export default defineComponent({
 <style scoped lang="less">
 .card-container {
   display: flex;
-  height: 500px;
-  width: 600px;
+  width: 100vw;
+  min-height: 500px;
 }
 
 .map {
