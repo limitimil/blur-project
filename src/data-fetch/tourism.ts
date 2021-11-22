@@ -4,6 +4,7 @@ import axios from '@/axios'
 import TdxArgument from './interface/TdxArgument'
 import { TdxFilter, TdxStatements } from './tdx/filterDSL'
 
+const KEY_FOR_ID = 'ID'
 const FILEDS_FOR_KEYWORD = [
   'Name',
   'DescriptionDetail',
@@ -37,7 +38,7 @@ export default class Tourism {
 
   // TODO: this builder is not able to collaberate with withKeyword, withClassName
   public withSubset(subset: string[]) :Tourism {
-    this.filter.regist(TdxStatements.filterIdSubset(subset))
+    this.filter.regist(TdxStatements.filterIdSubset(subset, KEY_FOR_ID))
     return this
   }
 
