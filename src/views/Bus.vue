@@ -7,7 +7,8 @@
             <img src="@/assets/logo/bus-en.svg" width="372"/>
             <img src="@/assets/logo/bus-zh.svg" width="253"/>
             <q-select v-model="city" :options="['台北市']" label="選擇縣市" style="width:446px"/>
-            <q-btn color="amber" label="START" size="30px"/>
+            <span v-show="invalid" class="text-warn">請先選擇您要查詢的縣市。</span>
+            <q-btn color="amber" label="START" size="30px" @click="search"/>
           </div>
         </div>
       </div>
@@ -32,21 +33,36 @@ export default defineComponent({
   name: 'Bus',
   components: {
   },
+  setup() {
+    const city = ref('')
+    const invalid = ref(false)
+    const search = () => {
+      console.log(city)
+      if (city.value === '') {
+        invalid.value = true
+      } else {
+        invalid.value = false
+      }
+    }
+    return {
+      city,
+      search,
+      invalid,
+    }
+  },
 })
 </script>
 <style lang="less">
 html {
   background: #E5E8E7;
 }
-#bus {
-  height: 100%;
-}
-.logo {
-  margin-top: 120px;
-}
 .q-footer {
   height: 90px;
   background: #747474;
   font-size: 18px;
+}
+.text-warn {
+  font-size: 24px;
+  color: #D0104C;
 }
 </style>
