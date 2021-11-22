@@ -1,8 +1,6 @@
 import { AxiosResponse } from 'axios'
-import lodash from 'lodash'
 import axios from '@/axios'
-import TdxArgument from './interface/TdxArgument'
-import { TdxFilter, TdxStatements } from './tdx/filterDSL'
+import TdxArgument from './tdx/interface/TdxArgument'
 import TdxRequestBuilder from './tdx/requestBuilder'
 
 export default class Tourism extends TdxRequestBuilder {

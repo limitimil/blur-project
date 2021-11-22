@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 import axios from '@/axios'
 import TdxPosition from '@/interface/TdxPosition'
-import TdxArgument from './interface/TdxArgument'
+import TdxArgument from './tdx/interface/TdxArgument'
 import TdxRequestBuilder from './tdx/requestBuilder'
 
 export default class BikeStation extends TdxRequestBuilder {

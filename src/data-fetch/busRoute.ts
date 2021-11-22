@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import axios from '@/axios'
-import TdxArgument from './interface/TdxArgument'
+import TdxArgument from './tdx/interface/TdxArgument'
 import TdxRequestBuilder from './tdx/requestBuilder'
 
 export default class BusRoute extends TdxRequestBuilder {
