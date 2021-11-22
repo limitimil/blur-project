@@ -1,5 +1,13 @@
 <template>
   <q-page>
+    <q-header elevated class="text-white">
+      <q-toolbar>
+        <q-toolbar-title class="flex items-center">
+          <img src="@/assets/logo/bus-sm.svg" width="123" />
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-header>
+
     <div id="bus">
       <div class="row">
         <div class="col-12">
@@ -55,6 +63,11 @@ export default defineComponent({
 <style lang="less">
 html {
   background: #E5E8E7;
+}
+.q-header {
+  height: 90px;
+  background: #747474;
+  font-size: 24px;
 }
 .q-footer {
   height: 90px;
