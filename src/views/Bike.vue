@@ -6,7 +6,10 @@
           <div class="logo flex justify-center">
             <img src="@/assets/logo/bike.svg" width="480"/>
           </div>
-          <BikeCard />
+          <div class="flex justify-center">
+            <q-select v-model="city" :options="['台北市']" label="所在城市" />
+            <q-select v-model="township" :options="['中山區']" label="所在區域" />
+          </div>
           <div class="flex justify-evenly">
             <img src="@/assets/icon/station.svg" width="150"/>
             <img src="@/assets/icon/road.svg" width="150"/>
@@ -27,9 +30,15 @@ import { useStore } from 'vuex'
 export default defineComponent({
   name: 'Bike',
   components: {
-    BikeCard: defineAsyncComponent(() => import('@/components/week2/BikeCard.vue')),
   },
-  props: {
+  setup() {
+    const city = ref('')
+    const township = ref('')
+
+    return {
+      city,
+      township,
+    }
   },
 })
 </script>
