@@ -38,7 +38,7 @@ export default defineComponent({
     const router = useRouter()
     watchEffect(() => {
       if (city.value !== '' && township.value !== '') {
-        router.push({ name: 'SmileBikeWorkflow' })
+        router.push({ name: 'BikeStation' })
       }
       return { city, township }
     })
