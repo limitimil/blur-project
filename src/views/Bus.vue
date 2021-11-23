@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-header elevated class="text-white">
+    <q-header v-if="showAdvancedSearch" elevated class="text-white">
       <q-toolbar>
         <q-toolbar-title class="flex items-center">
           <img src="@/assets/logo/bus-sm.svg" width="123" />
@@ -9,7 +9,7 @@
     </q-header>
 
     <div id="bus">
-      <div class="row">
+      <div v-if="!showAdvancedSearch" class="row">
         <div class="col-12">
           <div class="column justify-evenly items-center" style="height:990px">
             <img src="@/assets/logo/bus-en.svg" width="372"/>
@@ -18,6 +18,17 @@
             <span v-show="invalid" class="text-warn">請先選擇您要查詢的縣市。</span>
             <q-btn color="amber" label="START" size="30px" @click="search"/>
           </div>
+        </div>
+      </div>
+      <div v-else class="row">
+        <div class="col-3">
+          <q-select v-model="city" :options="['台北市']" label="選擇縣市" style="width:300px"/>
+        </div>
+        <div class="col-9">
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-9">
         </div>
       </div>
     </div>
@@ -44,18 +55,22 @@ export default defineComponent({
   setup() {
     const city = ref('')
     const invalid = ref(false)
+
+    const showAdvancedSearch = ref(false)
     const search = () => {
       console.log(city)
       if (city.value === '') {
         invalid.value = true
       } else {
         invalid.value = false
+        showAdvancedSearch.value = true
       }
     }
     return {
       city,
       search,
       invalid,
+      showAdvancedSearch,
     }
   },
 })
