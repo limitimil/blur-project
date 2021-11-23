@@ -7,9 +7,11 @@ export default abstract class FetchableService {
 
   private offset: number = 0;
 
-  private city: string | undefined = undefined;
+  // TODO: make city private again
+  protected city: string | undefined = undefined;
 
-  private keyword: string | undefined= undefined;
+  // TODO: make keyword private again
+  protected keyword: string | undefined= undefined;
 
   private className: string | undefined= undefined;
 
