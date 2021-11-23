@@ -1,10 +1,16 @@
 <template>
   <q-page>
     <q-header v-if="showAdvancedSearch" elevated class="text-white">
-      <q-toolbar>
-        <q-toolbar-title class="flex items-center">
-          <img src="@/assets/logo/bus-sm.svg" width="123" />
-        </q-toolbar-title>
+      <q-toolbar class="flex justify-between items-center toolbar" style="height:inherit">
+        <img src="@/assets/logo/bus-sm.svg" width="123" />
+        <q-btn-group flat rounded>
+          <q-btn flat class="btn btn-search" rounded label="路線搜尋" />
+          <q-btn flat class="btn btn-search" rounded label="站名搜尋" />
+        </q-btn-group>
+        <q-btn flat class="btn" label="最新消息" />
+        <q-btn flat class="btn" label="友站連結" />
+        <q-btn flat class="btn" label="意見回饋" />
+        <q-btn flat class="btn" label="我的收藏" />
       </q-toolbar>
     </q-header>
 
@@ -20,15 +26,22 @@
           </div>
         </div>
       </div>
-      <div v-else class="row">
+      <div v-else class="row q-col-gutter-xl">
         <div class="col-3">
           <q-select v-model="city" :options="['台北市']" label="選擇縣市" style="width:300px"/>
         </div>
         <div class="col-9">
+          <q-input bottom-slots v-model="text" placeholder="請輸入路線編號，或直接點選左側路線編號。">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
         </div>
         <div class="col-3">
+          route
         </div>
         <div class="col-9">
+          map
         </div>
       </div>
     </div>
@@ -79,10 +92,17 @@ export default defineComponent({
 html {
   background: #E5E8E7;
 }
+#bus {
+  padding: 55px 140px 0 140px;
+}
 .q-header {
   height: 90px;
   background: #747474;
   font-size: 24px;
+}
+.toolbar {
+  height: inherit;
+  padding: 0 140px;
 }
 .q-footer {
   height: 90px;
@@ -92,5 +112,12 @@ html {
 .text-warn {
   font-size: 24px;
   color: #D0104C;
+}
+.btn-search {
+  background: #484848;
+}
+.btn {
+  color: #E5E8E7;
+  font-size: 24px;
 }
 </style>
