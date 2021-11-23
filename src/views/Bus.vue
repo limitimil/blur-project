@@ -38,7 +38,7 @@
           </q-input>
         </div>
         <div class="col-3">
-          route
+          <BusRoute :value="busRoutes" />
         </div>
         <div class="col-9">
           map
@@ -56,7 +56,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, defineAsyncComponent, ref, watchEffect,
+  defineComponent, defineAsyncComponent, ref, reactive, watchEffect,
 } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -64,6 +64,7 @@ import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'Bus',
   components: {
+    BusRoute: defineAsyncComponent(() => import('@/components/_week3Utils/BusRoute.vue')),
   },
   setup() {
     const city = ref('')
@@ -79,11 +80,15 @@ export default defineComponent({
         showAdvancedSearch.value = true
       }
     }
+
+    const busRoutes = reactive([1, 2, 3, 4, 5])
+
     return {
       city,
       search,
       invalid,
       showAdvancedSearch,
+      busRoutes,
     }
   },
 })
