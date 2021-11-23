@@ -1,6 +1,18 @@
+import lodash from 'lodash'
+
 export default class CityService {
+  public getDecoratedCitiesForQuasarSelect(): any {
+    const cities = this.getCities()
+    return lodash.map(
+      cities,
+      (element) => ({
+        ...element, label: element.name,
+      }),
+    )
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public getCities(): {name: string, key: string}[] {
+  public getCities(): any[] {
     return [
       {
         name: '臺北市',
