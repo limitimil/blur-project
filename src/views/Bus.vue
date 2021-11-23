@@ -76,18 +76,18 @@ export default defineComponent({
     const showAdvancedSearch = ref(false)
     const search = async () => {
       console.log(city)
-      if (!city) {
+      if (!city.value) {
         invalid.value = true
       } else {
         invalid.value = false
         // @ts-ignore
-        busRouteStore.commit('appendQuery', {city: city.value.key})
+        busRouteStore.commit('appendQuery', { city: city.value.key })
         await busRouteStore.dispatch('getAll')
         showAdvancedSearch.value = true
       }
     }
 
-    const busRoutes = computed(()=> busRouteStore.getters.content)
+    const busRoutes = computed(() => busRouteStore.getters.content)
 
     return {
       cityOptions: new CityService().getDecoratedCitiesForQuasarSelect(),
