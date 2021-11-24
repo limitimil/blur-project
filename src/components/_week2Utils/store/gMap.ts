@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import TdxPosition from '@/interface/TdxPosition'
 
 export default createStore({
   state: {
@@ -31,6 +32,13 @@ export default createStore({
         streetViewControl: false,
       })
       context.commit('setMap', map)
+    },
+    markTdxPosition(context, position: TdxPosition) {
+      const latlng = {
+        lat: position.PositionLat,
+        lng: position.PositionLon,
+      }
+      context.dispatch('mark', latlng)
     },
     mark(context, position) {
       const { map } = context.state
