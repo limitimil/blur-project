@@ -16,7 +16,7 @@
 import { ref, onMounted, computed } from 'vue'
 import GMap from '@/components/_week2Utils/gMap.vue'
 import gMapStore from '@/components/_week2Utils/store/gMap'
-import getBusStopOnMap from './getBusStopOnMap'
+import { drawBusStopOnMap } from '@/services/gMap'
 
 export default {
   name: 'BikeStation',
@@ -44,7 +44,7 @@ export default {
       // methods
       calculateCenter,
       getBusStopOnMap: () => {
-        getBusStopOnMap(city.value, routeName.value, direction.value, gMapStore)
+        drawBusStopOnMap(city.value, routeName.value, direction.value, gMapStore)
       },
 
     }
