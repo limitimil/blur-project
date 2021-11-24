@@ -6,9 +6,9 @@
 
     <q-separator />
 
-    <q-card-section class="row">
+    <q-card-section class="flex justify-between q-gutter-md">
       <template v-for="route of routes" :key="route">
-        <div class="col-3 flex justify-center">
+        <div class="flex justify-center">
           <a href="#" class="text-route" @click="$emit('update', route.RouteID)">{{route.RouteName.Zh_tw}}</a>
         </div>
       </template>

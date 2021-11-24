@@ -26,12 +26,12 @@
           </div>
         </div>
       </div>
-      <div v-else class="row q-col-gutter-xl">
+      <div v-else-if="busRouteId === ''" class="row q-col-gutter-xl">
         <div class="col-3">
           <q-select v-model="city" :options="cityOptions" label="選擇縣市" style="width:300px"/>
         </div>
         <div class="col-9">
-          <q-input bottom-slots v-model="text" placeholder="請輸入路線編號，或直接點選左側路線編號。">
+          <q-input placeholder="請輸入路線編號，或直接點選左側路線編號。">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
@@ -39,6 +39,27 @@
         </div>
         <div class="col-3">
           <BusRoute :value="busRoutes" @update="updateRoute" />
+        </div>
+        <div class="col-9">
+          map
+        </div>
+      </div>
+      <div v-else class="row q-col-gutter-xl">
+        <div class="col-3 column">
+          <div class="row">
+            <div class="col-2">back icon</div>
+            <div class="col-10">
+              <q-input placeholder="尋找其他路線">
+                <template v-slot:append>
+                  <q-icon name="search" />
+                </template>
+              </q-input>
+            </div>
+          </div>
+          <div>
+            {{busRouteId}} card
+          </div>
+          <div>detail card</div>
         </div>
         <div class="col-9">
           map {{busRouteId}}
@@ -91,8 +112,8 @@ export default defineComponent({
       }
     }
 
-    const busRouteId = ref(undefined)
-    const updateRoute = (routeId: any) => {
+    const busRouteId = ref('')
+    const updateRoute = (routeId: string) => {
       busRouteId.value = routeId
     }
 
