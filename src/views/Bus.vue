@@ -20,7 +20,7 @@
           <div class="column justify-evenly items-center" style="height:990px">
             <img src="@/assets/logo/bus-en.svg" width="372"/>
             <img src="@/assets/logo/bus-zh.svg" width="253"/>
-            <q-select v-model="city" :options="['台北市']" label="選擇縣市" style="width:446px"/>
+            <q-select v-model="city" :options="cityOptions" label="選擇縣市" style="width:446px"/>
             <span v-show="invalid" class="text-warn">請先選擇您要查詢的縣市。</span>
             <q-btn color="amber" label="START" size="30px" @click="search"/>
           </div>
@@ -56,10 +56,13 @@
 
 <script lang="ts">
 import {
-  defineComponent, defineAsyncComponent, ref, reactive, watchEffect,
+  defineComponent, defineAsyncComponent, ref, computed, reactive, watchEffect,
 } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+
+import busRouteStore from '@/store/busRoute'
+import CityService from '@/services/city'
 
 export default defineComponent({
   name: 'Bus',
@@ -67,23 +70,27 @@ export default defineComponent({
     BusRoute: defineAsyncComponent(() => import('@/components/_week3Utils/BusRoute.vue')),
   },
   setup() {
-    const city = ref('')
+    const city = ref(undefined)
     const invalid = ref(false)
 
     const showAdvancedSearch = ref(false)
-    const search = () => {
+    const search = async () => {
       console.log(city)
-      if (city.value === '') {
+      if (!city.value) {
         invalid.value = true
       } else {
         invalid.value = false
+        // @ts-ignore
+        busRouteStore.commit('appendQuery', { city: city.value.key })
+        await busRouteStore.dispatch('getAll')
         showAdvancedSearch.value = true
       }
     }
 
-    const busRoutes = reactive([1, 2, 3, 4, 5])
+    const busRoutes = computed(() => busRouteStore.getters.content)
 
     return {
+      cityOptions: new CityService().getDecoratedCitiesForQuasarSelect(),
       city,
       search,
       invalid,

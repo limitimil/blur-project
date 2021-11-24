@@ -9,7 +9,7 @@
     <q-card-section class="row">
       <template v-for="route of routes" :key="route">
         <div class="col-3 flex justify-center">
-          <a href="#" class="text-route">{{route}}</a>
+          <a href="#" class="text-route">{{route.RouteName.Zh_tw}}</a>
         </div>
       </template>
     </q-card-section>
