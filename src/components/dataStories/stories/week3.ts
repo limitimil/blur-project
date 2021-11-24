@@ -1,6 +1,6 @@
 import BusRouteService from '@/services/busRoute'
 import BusScheduleService from '@/services/busSchedule'
-import { DataType as BusDataType , getBusData, getBusDataStreaming } from '@/data-fetch/bus'
+import { BusDataType, getBusData, getBusDataStreaming } from '@/data-fetch/bus'
 
 const topFiveBusRouteInTaipei = async () => {
   const service = new BusRouteService()
