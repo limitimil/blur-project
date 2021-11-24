@@ -1,7 +1,6 @@
 import BusRouteService from '@/services/busRoute'
 import BusScheduleService from '@/services/busSchedule'
-import getBusData from '@/data-fetch/bus'
-import { DataType as BusDataType } from '@/data-fetch/bus'
+import { DataType as BusDataType , getBusData, getBusDataStreaming } from '@/data-fetch/bus'
 
 const topFiveBusRouteInTaipei = async () => {
   const service = new BusRouteService()
@@ -38,16 +37,22 @@ const BUS_DATA_TYPE = [
   'EstimatedTimeOfArrival',
   'DisplayStopOfRoute',
 ]
+const getBusDataInRealTimeByFrequencyStreaming = async () => getBusDataStreaming('HsinChu', BusDataType.RealTimeByFrequency, '0007')
+const getBusDataInRealTimeNearStopStreaming = async () => getBusDataStreaming('HsinChu', BusDataType.RealTimeNearStop, '0007')
+const getBusDataInEstimatedTimeOfArrivalStreaming = async () => getBusDataStreaming('HsinChu', BusDataType.EstimatedTimeOfArrival, '0007')
 const getBusDataInRealTimeByFrequency = async () => getBusData('HsinChu', BusDataType.RealTimeByFrequency, '0007')
 const getBusDataInRealTimeNearStop = async () => getBusData('HsinChu', BusDataType.RealTimeNearStop, '0007')
 const getBusDataInEstimatedTimeOfArrival = async () => getBusData('HsinChu', BusDataType.EstimatedTimeOfArrival, '0007')
-const getBusDataInDisplayStopOfRoute = async () => getBusData('HsinChu', BusDataType.DisplayStopOfRoute, '0007')
+const getBusDataInDisplayStopOfRoute = async () => getBusData('Taipei', BusDataType.DisplayStopOfRoute, '204')
 
 export default {
   topFiveBusRouteInTaipei,
   topFiveBusRouteInHsinChu,
   topFiveBusRouteInTaipeiWithKeyword,
   getBusRouteByRouteId,
+  getBusDataInRealTimeByFrequencyStreaming,
+  getBusDataInRealTimeNearStopStreaming,
+  getBusDataInEstimatedTimeOfArrivalStreaming,
   getBusDataInRealTimeByFrequency,
   getBusDataInRealTimeNearStop,
   getBusDataInEstimatedTimeOfArrival,
