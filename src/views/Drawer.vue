@@ -59,13 +59,11 @@ export default {
   data() {
     return {
       usefulLinks: [
-        '/data-stories/topFiveBusRouteInTaipei',
-        '/data-stories/topFiveBusRouteInTaipeiWithKeyword',
-        '/data-stories/getBusRouteByRouteId',
-        '/data-stories/getBusScheduleByRouteId',
-        '/data-stories/getBusScheduleWithRealTimeByFrequency',
-        '/data-stories/getBusScheduleWithRealTimeNearStop',
-        '/data-stories/getBusScheduleWithEstimatedTimeOfArrival',
+        '/component-stories/GoogleMap',
+        '/data-stories/topFiveBikeStationNearBy101',
+        '/data-stories/topFiveBikeStationNearBy101WithKeyword',
+        '/vuex-stories/Travel',
+        '/week2/workflow/bike-station',
       ],
     }
   },
