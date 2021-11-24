@@ -26,22 +26,47 @@
           </div>
         </div>
       </div>
-      <div v-else class="row q-col-gutter-xl">
+      <div v-else-if="busRoute.RouteID === undefined" class="row q-col-gutter-xl">
         <div class="col-3">
-          <q-select v-model="city" :options="['台北市']" label="選擇縣市" style="width:300px"/>
+          <q-select v-model="city" :options="cityOptions" label="選擇縣市" style="width:300px"/>
         </div>
         <div class="col-9">
-          <q-input bottom-slots v-model="text" placeholder="請輸入路線編號，或直接點選左側路線編號。">
+          <q-input placeholder="請輸入路線編號，或直接點選左側路線編號。">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
           </q-input>
         </div>
         <div class="col-3">
-          <BusRoute :value="busRoutes" />
+          <BusRouteCard :value="busRoutes" @update="updateRoute" />
         </div>
         <div class="col-9">
           map
+        </div>
+      </div>
+      <div v-else class="row q-col-gutter-xl">
+        <div class="col-3 column">
+          <div class="row">
+            <div class="col-2">
+              <q-btn round flat @click="delete busRoute.RouteID">
+                <img src="@/assets/icon/btnReturn.svg" width="56"/>
+              </q-btn>
+            </div>
+            <div class="col-10">
+              <q-input placeholder="尋找其他路線">
+                <template v-slot:append>
+                  <q-icon name="search" />
+                </template>
+              </q-input>
+            </div>
+          </div>
+          <div>
+            <SingleBusRouteCard :value="busRoute"/>
+          </div>
+          <div>detail card</div>
+        </div>
+        <div class="col-9">
+          map {{busRoute.RouteID}}
         </div>
       </div>
     </div>
@@ -56,7 +81,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, defineAsyncComponent, ref, computed, reactive, watchEffect,
+  defineComponent, defineAsyncComponent, ref, computed, reactive, watch,
 } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -67,35 +92,45 @@ import CityService from '@/services/city'
 export default defineComponent({
   name: 'Bus',
   components: {
-    BusRoute: defineAsyncComponent(() => import('@/components/_week3Utils/BusRoute.vue')),
+    BusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/BusRouteCard.vue')),
+    SingleBusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/SingleBusRouteCard.vue')),
   },
   setup() {
     const city = ref(undefined)
-    const invalid = ref(false)
+    const busRoutes = computed(() => busRouteStore.getters.content)
+    watch(city, async () => {
+      if (city.value) {
+        // @ts-ignore
+        busRouteStore.commit('appendQuery', { city: city.value.key })
+        await busRouteStore.dispatch('getAll')
+      }
+    })
 
+    const invalid = ref(false)
     const showAdvancedSearch = ref(false)
-    const search = async () => {
-      console.log(city)
+    const search = () => {
       if (!city.value) {
         invalid.value = true
       } else {
         invalid.value = false
-        // @ts-ignore
-        busRouteStore.commit('appendQuery', { city: city.value.key })
-        await busRouteStore.dispatch('getAll')
         showAdvancedSearch.value = true
       }
     }
 
-    const busRoutes = computed(() => busRouteStore.getters.content)
+    const busRoute = reactive({})
+    const updateRoute = (route: any) => {
+      Object.assign(busRoute, route)
+    }
 
     return {
       cityOptions: new CityService().getDecoratedCitiesForQuasarSelect(),
       city,
+      busRoutes,
       search,
       invalid,
       showAdvancedSearch,
-      busRoutes,
+      busRoute,
+      updateRoute,
     }
   },
 })

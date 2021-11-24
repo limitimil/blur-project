@@ -6,25 +6,27 @@
 
     <q-separator />
 
-    <q-card-section class="row">
+    <q-card-section class="flex justify-between q-gutter-md">
       <template v-for="route of routes" :key="route">
-        <div class="col-3 flex justify-center">
-          <a href="#" class="text-route">{{route.RouteName.Zh_tw}}</a>
+        <div class="flex justify-center">
+          <a href="#" class="text-route" @click="$emit('update', route)">{{route.RouteName.Zh_tw}}</a>
         </div>
       </template>
     </q-card-section>
   </q-card>
 </template>
 <script lang="ts">
-import { reactive } from 'vue'
+import { computed } from 'vue'
 
 export default {
-  name: 'BusRoute',
+  name: 'BusRouteCard',
   props: [
     'value',
   ],
+  emits: ['update'],
   setup(props: any) {
-    const routes = reactive(props.value)
+    const routes = computed(() => props.value)
+
     return {
       routes,
     }
@@ -34,12 +36,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .text-title {
-  color:#484848;
-  font-weight:900;
-  font-size:24px;
+  color: #484848;
+  font-weight: 900;
+  font-size: 24px;
 }
 .text-route {
-  color:#484848;
-  font-size:18px;
+  color: #484848;
+  font-size: 18px;
 }
 </style>
