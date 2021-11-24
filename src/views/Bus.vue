@@ -47,7 +47,11 @@
       <div v-else class="row q-col-gutter-xl">
         <div class="col-3 column">
           <div class="row">
-            <div class="col-2">back icon</div>
+            <div class="col-2">
+              <q-btn round flat @click="delete busRoute.RouteID">
+                <img src="@/assets/icon/btnReturn.svg" width="56"/>
+              </q-btn>
+            </div>
             <div class="col-10">
               <q-input placeholder="尋找其他路線">
                 <template v-slot:append>
@@ -58,7 +62,6 @@
           </div>
           <div>
             <SingleBusRouteCard :value="busRoute"/>
-            {{busRoute.RouteID}} card
           </div>
           <div>detail card</div>
         </div>
