@@ -38,10 +38,10 @@
           </q-input>
         </div>
         <div class="col-3">
-          <BusRoute :value="busRoutes" />
+          <BusRoute :value="busRoutes" @update="updateRoute" />
         </div>
         <div class="col-9">
-          map
+          map {{busRouteId}}
         </div>
       </div>
     </div>
@@ -77,7 +77,6 @@ export default defineComponent({
         // @ts-ignore
         busRouteStore.commit('appendQuery', { city: city.value.key })
         await busRouteStore.dispatch('getAll')
-        console.log(busRoutes)
       }
     })
 
@@ -92,6 +91,11 @@ export default defineComponent({
       }
     }
 
+    const busRouteId = ref(undefined)
+    const updateRoute = (routeId: any) => {
+      busRouteId.value = routeId
+    }
+
     return {
       cityOptions: new CityService().getDecoratedCitiesForQuasarSelect(),
       city,
@@ -99,6 +103,8 @@ export default defineComponent({
       search,
       invalid,
       showAdvancedSearch,
+      busRouteId,
+      updateRoute,
     }
   },
 })
