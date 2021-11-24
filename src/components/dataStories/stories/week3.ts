@@ -1,5 +1,7 @@
 import BusRouteService from '@/services/busRoute'
 import BusScheduleService from '@/services/busSchedule'
+import getBusData from '@/data-fetch/bus'
+import { DataType as BusDataType } from '@/data-fetch/bus'
 
 const topFiveBusRouteInTaipei = async () => {
   const service = new BusRouteService()
@@ -34,32 +36,20 @@ const BUS_DATA_TYPE = [
   'RealTimeByFrequency',
   'RealTimeNearStop',
   'EstimatedTimeOfArrival',
+  'DisplayStopOfRoute',
 ]
+const getBusDataInRealTimeByFrequency = async () => getBusData('HsinChu', BusDataType.RealTimeByFrequency, '0007')
+const getBusDataInRealTimeNearStop = async () => getBusData('HsinChu', BusDataType.RealTimeNearStop, '0007')
+const getBusDataInEstimatedTimeOfArrival = async () => getBusData('HsinChu', BusDataType.EstimatedTimeOfArrival, '0007')
+const getBusDataInDisplayStopOfRoute = async () => getBusData('HsinChu', BusDataType.DisplayStopOfRoute, '0007')
 
-const getBusScheduleWithRealTimeByFrequency = async () => {
-  const service = new BusScheduleService()
-  service.setCity('HsinChu')
-  service.setBusDataType('RealTimeByFrequency')
-  return service.getByUniqId('0007')
-}
-const getBusScheduleWithRealTimeNearStop = async () => {
-  const service = new BusScheduleService()
-  service.setCity('HsinChu')
-  service.setBusDataType('RealTimeNearStop')
-  return service.getByUniqId('0007')
-}
-const getBusScheduleWithEstimatedTimeOfArrival = async () => {
-  const service = new BusScheduleService()
-  service.setCity('HsinChu')
-  service.setBusDataType('EstimatedTimeOfArrival')
-  return service.getByUniqId('0007')
-}
 export default {
   topFiveBusRouteInTaipei,
   topFiveBusRouteInHsinChu,
   topFiveBusRouteInTaipeiWithKeyword,
   getBusRouteByRouteId,
-  getBusScheduleWithRealTimeByFrequency,
-  getBusScheduleWithRealTimeNearStop,
-  getBusScheduleWithEstimatedTimeOfArrival,
+  getBusDataInRealTimeByFrequency,
+  getBusDataInRealTimeNearStop,
+  getBusDataInEstimatedTimeOfArrival,
+  getBusDataInDisplayStopOfRoute,
 }
