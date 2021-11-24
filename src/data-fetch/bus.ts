@@ -1,8 +1,7 @@
 import { AxiosResponse } from 'axios'
 import axios from '@/axios'
-import TdxArgument from './tdx/interface/TdxArgument'
-import TdxRequestBuilder from './tdx/requestBuilder'
 
+// eslint-disable-next-line no-shadow
 export enum BusDataType {
   RealTimeByFrequency= 'RealTimeByFrequency',
   RealTimeNearStop= 'RealTimeNearStop',

@@ -1,5 +1,4 @@
 import BusRouteService from '@/services/busRoute'
-import BusScheduleService from '@/services/busSchedule'
 import { BusDataType, getBusData, getBusDataStreaming } from '@/data-fetch/bus'
 
 const topFiveBusRouteInTaipei = async () => {
