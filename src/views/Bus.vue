@@ -38,7 +38,7 @@
           </q-input>
         </div>
         <div class="col-3">
-          <BusRoute :value="busRoutes" @update="updateRoute" />
+          <BusRouteCard :value="busRoutes" @update="updateRoute" />
         </div>
         <div class="col-9">
           map
@@ -57,6 +57,7 @@
             </div>
           </div>
           <div>
+            <SingleBusRouteCard :value="busRoute"/>
             {{busRoute.RouteID}} card
           </div>
           <div>detail card</div>
@@ -88,7 +89,8 @@ import CityService from '@/services/city'
 export default defineComponent({
   name: 'Bus',
   components: {
-    BusRoute: defineAsyncComponent(() => import('@/components/_week3Utils/BusRoute.vue')),
+    BusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/BusRouteCard.vue')),
+    SingleBusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/SingleBusRouteCard.vue')),
   },
   setup() {
     const city = ref(undefined)

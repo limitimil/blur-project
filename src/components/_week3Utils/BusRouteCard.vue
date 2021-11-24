@@ -19,7 +19,7 @@
 import { computed } from 'vue'
 
 export default {
-  name: 'BusRoute',
+  name: 'BusRouteCard',
   props: [
     'value',
   ],
@@ -36,12 +36,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .text-title {
-  color:#484848;
-  font-weight:900;
-  font-size:24px;
+  color: #484848;
+  font-weight: 900;
+  font-size: 24px;
 }
 .text-route {
-  color:#484848;
-  font-size:18px;
+  color: #484848;
+  font-size: 18px;
 }
 </style>
