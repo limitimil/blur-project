@@ -42,7 +42,6 @@ export default createStore({
     },
     mark(context, position) {
       const { map } = context.state
-      console.log(position)
       // @ts-ignore
       const marker = new google.maps.Marker({
         position,
