@@ -9,7 +9,7 @@
     <q-card-section class="flex justify-between q-gutter-md">
       <template v-for="route of routes" :key="route">
         <div class="flex justify-center">
-          <a href="#" class="text-route" @click="$emit('update', route.RouteID)">{{route.RouteName.Zh_tw}}</a>
+          <a href="#" class="text-route" @click="$emit('update', route)">{{route.RouteName.Zh_tw}}</a>
         </div>
       </template>
     </q-card-section>

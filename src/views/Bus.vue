@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div v-else-if="busRouteId === ''" class="row q-col-gutter-xl">
+      <div v-else-if="busRoute.RouteID === undefined" class="row q-col-gutter-xl">
         <div class="col-3">
           <q-select v-model="city" :options="cityOptions" label="選擇縣市" style="width:300px"/>
         </div>
@@ -57,12 +57,12 @@
             </div>
           </div>
           <div>
-            {{busRouteId}} card
+            {{busRoute.RouteID}} card
           </div>
           <div>detail card</div>
         </div>
         <div class="col-9">
-          map {{busRouteId}}
+          map {{busRoute.RouteID}}
         </div>
       </div>
     </div>
@@ -112,9 +112,9 @@ export default defineComponent({
       }
     }
 
-    const busRouteId = ref('')
-    const updateRoute = (routeId: string) => {
-      busRouteId.value = routeId
+    const busRoute = reactive({})
+    const updateRoute = (route: any) => {
+      Object.assign(busRoute, route)
     }
 
     return {
@@ -124,7 +124,7 @@ export default defineComponent({
       search,
       invalid,
       showAdvancedSearch,
-      busRouteId,
+      busRoute,
       updateRoute,
     }
   },
