@@ -28,7 +28,7 @@
       </div>
       <div v-else class="row q-col-gutter-xl">
         <div class="col-3">
-          <q-select v-model="city" :options="['台北市']" label="選擇縣市" style="width:300px"/>
+          <q-select v-model="city" :options="cityOptions" label="選擇縣市" style="width:300px"/>
         </div>
         <div class="col-9">
           <q-input bottom-slots v-model="text" placeholder="請輸入路線編號，或直接點選左側路線編號。">
@@ -56,7 +56,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, defineAsyncComponent, ref, computed, reactive, watchEffect,
+  defineComponent, defineAsyncComponent, ref, computed, reactive, watch,
 } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -71,31 +71,34 @@ export default defineComponent({
   },
   setup() {
     const city = ref(undefined)
-    const invalid = ref(false)
+    const busRoutes = computed(() => busRouteStore.getters.content)
+    watch(city, async () => {
+      if (city.value) {
+        // @ts-ignore
+        busRouteStore.commit('appendQuery', { city: city.value.key })
+        await busRouteStore.dispatch('getAll')
+        console.log(busRoutes)
+      }
+    })
 
+    const invalid = ref(false)
     const showAdvancedSearch = ref(false)
-    const search = async () => {
-      console.log(city)
+    const search = () => {
       if (!city.value) {
         invalid.value = true
       } else {
         invalid.value = false
-        // @ts-ignore
-        busRouteStore.commit('appendQuery', { city: city.value.key })
-        await busRouteStore.dispatch('getAll')
         showAdvancedSearch.value = true
       }
     }
 
-    const busRoutes = computed(() => busRouteStore.getters.content)
-
     return {
       cityOptions: new CityService().getDecoratedCitiesForQuasarSelect(),
       city,
+      busRoutes,
       search,
       invalid,
       showAdvancedSearch,
-      busRoutes,
     }
   },
 })

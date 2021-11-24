@@ -16,7 +16,7 @@
   </q-card>
 </template>
 <script lang="ts">
-import { reactive } from 'vue'
+import { computed } from 'vue'
 
 export default {
   name: 'BusRoute',
@@ -24,7 +24,8 @@ export default {
     'value',
   ],
   setup(props: any) {
-    const routes = reactive(props.value)
+    const routes = computed(() => props.value)
+
     return {
       routes,
     }
