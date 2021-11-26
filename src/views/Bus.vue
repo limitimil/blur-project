@@ -63,7 +63,7 @@
           <div>
             <SingleBusRouteCard :value="busRoute"/>
           </div>
-          <div>detail card</div>
+          <div><StopCard :value="busStops"></StopCard></div>
         </div>
         <div class="col-9">
           <GMap></GMap>
@@ -90,6 +90,7 @@ import busRouteStore from '@/store/busRoute'
 import busStore from '@/store/bus'
 import CityService from '@/services/city'
 
+import StopCard from '@/components/_storyUtils/StopCard.vue'
 import GMap from '@/components/_week2Utils/gMap.vue'
 import gMapStore from '@/components/_week2Utils/store/gMap'
 import { drawBusStopOnMap } from '@/services/gMap'
@@ -100,6 +101,7 @@ export default defineComponent({
     BusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/BusRouteCard.vue')),
     SingleBusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/SingleBusRouteCard.vue')),
     GMap,
+    StopCard,
   },
   setup() {
     const city = ref(undefined)
@@ -138,6 +140,7 @@ export default defineComponent({
       cityOptions: new CityService().getDecoratedCitiesForQuasarSelect(),
       city,
       busRoutes,
+      busStops: computed(()=> busStore.getters.content),
       search,
       invalid,
       showAdvancedSearch,
