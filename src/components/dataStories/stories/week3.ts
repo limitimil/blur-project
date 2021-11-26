@@ -45,12 +45,12 @@ const getBusDataInRealTimeNearStop = async () => getBusData('HsinChu', BusDataTy
 const getBusDataInEstimatedTimeOfArrival = async () => getBusData('HsinChu', BusDataType.EstimatedTimeOfArrival, '81')
 const getBusDataInDisplayStopOfRoute = async () => getBusData('Taipei', BusDataType.DisplayStopOfRoute, '204')
 
-const getDynamicBusStop = async ()=> {
+const getDynamicBusStop = async () => {
   const service = new DynamicBusStopService()
   service.setCity('HsinChu')
   service.setRouteName('81')
   service.setDirection(0)
-  return [ await service.fetch() ]
+  return [await service.fetch()]
 }
 
 export default {

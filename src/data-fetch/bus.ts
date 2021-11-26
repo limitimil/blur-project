@@ -30,7 +30,7 @@ export async function getBusDataStreaming(city: string, type: BusDataType, route
 
 // @ts-ignore
 function insert(value, index, item) {
-    value.splice( index, 0, item );
+  value.splice(index, 0, item)
 }
 
 // TODO: need ut to guard magic of urlPath
@@ -54,7 +54,7 @@ export default class Bus {
 
   public useStreaming(): Bus {
     const idx = this.urlPath.findIndex((elem) => elem === 'Bus')
-    insert(this.urlPath, idx+1, 'Streaming')
+    insert(this.urlPath, idx + 1, 'Streaming')
     return this
   }
 
@@ -66,12 +66,12 @@ export default class Bus {
 
   private insertCity(city: string): void{
     const idx = this.urlPath.findIndex((elem) => elem === 'City')
-    insert(this.urlPath, idx+1, city)
+    insert(this.urlPath, idx + 1, city)
   }
 
   private insertType(type: string): void{
     const idx = this.urlPath.findIndex((elem) => elem === 'Bus')
-    insert(this.urlPath, idx+1, type)
+    insert(this.urlPath, idx + 1, type)
   }
 
   public async invoke(city: string, type: BusDataType): Promise<any[]> {

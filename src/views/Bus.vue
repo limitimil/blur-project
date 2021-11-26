@@ -132,7 +132,7 @@ export default defineComponent({
       Object.assign(busRoute, route)
       // @ts-ignore
       drawBusStopOnMap(city.value.key, route.RouteName.Zh_tw, 0, gMapStore)
-      busStore.commit('appendQuery', { routeName: route.RouteName.Zh_tw} )
+      busStore.commit('appendQuery', { routeName: route.RouteName.Zh_tw })
       busStore.dispatch('fetch')
     }
 
@@ -140,7 +140,7 @@ export default defineComponent({
       cityOptions: new CityService().getDecoratedCitiesForQuasarSelect(),
       city,
       busRoutes,
-      busStops: computed(()=> busStore.getters.content),
+      busStops: computed(() => busStore.getters.content),
       search,
       invalid,
       showAdvancedSearch,

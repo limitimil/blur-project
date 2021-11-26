@@ -1,5 +1,8 @@
+/* eslint-disable no-shadow */
 enum ServiceType {
+  // eslint-disable-next-line camelcase
   Youbike1_0 = 1,
+  // eslint-disable-next-line camelcase
   Youbike2_0 = 2,
 }
 enum ServiceStatus {
