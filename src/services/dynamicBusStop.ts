@@ -94,7 +94,6 @@ export default class DynamicBusStopService {
     return builder.invoke(this.city, BusDataType.EstimatedTimeOfArrival)
   }
 
-  // TODO: use predefined type.
   public async fetch(): Promise<DynamicBusStops[]> {
     if (!this.city || !this.routeName || this.direction === undefined) {
       throw Error(`Service class is not able to fetch data without city and routeName:
@@ -106,7 +105,6 @@ export default class DynamicBusStopService {
     let stops = await this.fetchStops()
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const estimatedTime = await this.fetchEstimatedTime()
-    // TODO: stops actually an array!
     // eslint-disable-next-line arrow-body-style
     stops = this.calculateDeptDest(stops)
     stops.Stops = lodash.map(

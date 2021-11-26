@@ -46,11 +46,9 @@
   </q-card>
 </template>
 <script lang="ts">
-import { ref } from 'vue'
-import LocalCollection from '@/data-fetch/localCollection'
 
 export default {
-  name: 'Card',
+  name: 'StopCard',
 
   props: [
     'value',
@@ -59,20 +57,8 @@ export default {
   components: {
   },
 
-  setup(props: any) {
-    const collection = new LocalCollection()
-    const isSaved = ref(collection.getCollectedSceneSpotIds().includes(props.value.ID))
-    const handleUpdate = (checkBoxValue: boolean) => {
-      const id = props.value.ID
-      if (checkBoxValue) {
-        collection.appendCollectedSceneSpotId(id)
-      } else {
-        collection.removeCollectedSceneSpotId(id)
-      }
-    }
+  setup() {
     return {
-      isSaved,
-      handleUpdate,
     }
   },
 }
