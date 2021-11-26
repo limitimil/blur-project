@@ -87,6 +87,7 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
 import busRouteStore from '@/store/busRoute'
+import busStore from '@/store/bus'
 import CityService from '@/services/city'
 
 import GMap from '@/components/_week2Utils/gMap.vue'
@@ -107,6 +108,8 @@ export default defineComponent({
       if (city.value) {
         // @ts-ignore
         busRouteStore.commit('appendQuery', { city: city.value.key })
+        // @ts-ignore
+        busStore.commit('appendQuery', { city: city.value.key })
         await busRouteStore.dispatch('getAll')
       }
     })
@@ -127,6 +130,8 @@ export default defineComponent({
       Object.assign(busRoute, route)
       // @ts-ignore
       drawBusStopOnMap(city.value.key, route.RouteName.Zh_tw, 0, gMapStore)
+      busStore.commit('appendQuery', { routeName: route.RouteName.Zh_tw} )
+      busStore.dispatch('fetch')
     }
 
     return {
