@@ -2,7 +2,7 @@
   <q-card>
     <q-card-section class="flex justify-center">
       <div class="text-title">
-        <div class="flex justify-center">{{route.RouteName.Zh_tw}}</div>
+        <div class="flex justify-center">{{route.RouteName}}</div>
         <div class="flex justify-center">{{route.DepartureStopNameZh}}－{{route.DestinationStopNameZh}}</div>
       </div>
     </q-card-section>
@@ -10,6 +10,7 @@
 </template>
 <script lang="ts">
 import { computed } from 'vue'
+import BusStore from '@/store/bus'
 
 export default {
   name: 'SingleBusRouteCard',
@@ -17,7 +18,7 @@ export default {
     'value',
   ],
   setup(props: any) {
-    const route = computed(() => props.value)
+    const route = computed(() => BusStore.getters.content)
 
     return {
       route,
