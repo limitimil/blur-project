@@ -47,6 +47,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../components/dataStories/StoryRoot.vue'),
   },
   {
+    path: '/data-stories-revamp/v1/:storyId',
+    name: 'DataStoriesRevampV1',
+    component: () => import(/* webpackChunkName: "about" */ '../components/dataStories/StoryRoot.vue'),
+  },
+  {
+    path: '/data-stories-revamp/v2/:storyId',
+    name: 'DataStoriesRevampV2',
+    component: () => import(/* webpackChunkName: "about" */ '../components/dataStories/StoryRoot2.vue'),
+  },
+  {
     path: '/vuex-stories/:storyId',
     name: 'VuexStories',
     component: () => import(/* webpackChunkName: "about" */ '../components/vuexStories/StoryRoot.vue'),
