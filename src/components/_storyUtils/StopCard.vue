@@ -1,29 +1,47 @@
 <template>
   <q-card class="card">
     <q-card-section>
-      <h4 v-if="value[0]">0</h4>
-      <ul v-if="value[0]">
-        <li v-for="item in Object.entries(value[0])" :key="item">
-          <ul v-if="item[0] === 'Stops'">
-            <li v-for="stop in item[1]" :key="stop"> {{stop}}</li>
-          </ul>
-          <span v-else>
-            {{item}}
-          </span>
-        </li>
-      </ul>
-      <h4 v-if="value[1]">1</h4>
-      <ul v-if="value[1]">
-        <li v-for="item in Object.entries(value[1])" :key="item">
-          {{item}}
-          <ul v-if="item[0] === 'Stops'">
-            <li v-for="stop in item[1]" :key="stop"> {{stop}}</li>
-          </ul>
-          <span v-else>
-            {{item}}
-          </span>
-        </li>
-      </ul>
+      <div class="row">
+        <label for="" class="row">Stops</label>
+        <ul>
+          <li class="col" v-for="stop in value.Stops" :key="stop"> Stop Fields
+            <ul>
+              <li> StopID: {{stop.StopID }} </li>
+              <li> StopNameZh: {{stop.StopNameZh}} </li>
+              <li> StopBoarding: {{stop.StopBoarding}} </li>
+              <li> StopSequence: {{stop.StopSequence}} </li>
+
+              <li> EstimateTime(allowed to be empty): {{stop.EstimateTime}} </li>
+              <li> EstimateArrivalTimeStamp(allowed to be empty): {{stop.EstimateArrivalTimeStamp}} </li>
+              <li> StopStatus: {{stop.StopStatus}} </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <label for="" class="col">RouteID</label>
+        <div class="col">{{ value.RouteID }}</div>
+      </div>
+      <div class="row">
+        <label for="" class="col">RouteName</label>
+        <div class="col">{{ value.RouteName }}</div>
+      </div>
+      <div class="row">
+        <label for="" class="col">DepartureStopNameZh</label>
+        <div class="col">{{ value.DepartureStopNameZh }}</div>
+      </div>
+      <div class="row">
+        <label for="" class="col">DestinationStopNameZh</label>
+        <div class="col">{{ value.DestinationStopNameZh }}</div>
+      </div>
+      <div class="row">
+        <label for="" class="col">Direction</label>
+        <div class="col">{{ value.Direction }}</div>
+      </div>
+      <div class="row">
+        <label for="" class="col">Stops.length</label>
+        <div class="col">{{ value.Stops?.length }}</div>
+      </div>
     </q-card-section>
   </q-card>
 </template>
