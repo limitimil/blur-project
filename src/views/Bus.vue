@@ -41,7 +41,7 @@
           <BusRouteCard :value="busRoutes" @update="updateRoute" />
         </div>
         <div class="col-9">
-          map
+          <GMap></GMap>
         </div>
       </div>
       <div v-else class="row q-col-gutter-xl">
@@ -66,7 +66,7 @@
           <div>detail card</div>
         </div>
         <div class="col-9">
-          map {{busRoute.RouteID}}
+          <GMap></GMap>
         </div>
       </div>
     </div>
@@ -89,11 +89,16 @@ import { useRouter } from 'vue-router'
 import busRouteStore from '@/store/busRoute'
 import CityService from '@/services/city'
 
+import GMap from '@/components/_week2Utils/gMap.vue'
+import gMapStore from '@/components/_week2Utils/store/gMap'
+import { drawBusStopOnMap } from '@/services/gMap'
+
 export default defineComponent({
   name: 'Bus',
   components: {
     BusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/BusRouteCard.vue')),
     SingleBusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/SingleBusRouteCard.vue')),
+    GMap,
   },
   setup() {
     const city = ref(undefined)
@@ -120,6 +125,8 @@ export default defineComponent({
     const busRoute = reactive({})
     const updateRoute = (route: any) => {
       Object.assign(busRoute, route)
+      // @ts-ignore
+      drawBusStopOnMap(city.value.key, route.RouteName.Zh_tw, 0, gMapStore)
     }
 
     return {

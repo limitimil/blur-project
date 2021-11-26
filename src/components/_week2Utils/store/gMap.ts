@@ -1,4 +1,7 @@
 import { createStore } from 'vuex'
+import TdxPosition from '@/interface/TdxPosition'
+// @ts-ignore
+import gMapMark from '@/assets/icon/gMapMark.svg'
 
 export default createStore({
   state: {
@@ -32,12 +35,19 @@ export default createStore({
       })
       context.commit('setMap', map)
     },
+    markTdxPosition(context, position: TdxPosition) {
+      const latlng = {
+        lat: position.PositionLat,
+        lng: position.PositionLon,
+      }
+      context.dispatch('mark', latlng)
+    },
     mark(context, position) {
       const { map } = context.state
-      console.log(position)
       // @ts-ignore
       const marker = new google.maps.Marker({
         position,
+        icon: gMapMark,
         map,
       })
       context.commit('appendMarker', marker)
