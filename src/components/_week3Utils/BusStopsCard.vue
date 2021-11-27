@@ -2,10 +2,10 @@
   <q-card>
     <q-card-section>
       <div class="row text-stop">
-        <div class="col-6 flex justify-center">
+        <div class="col-6 flex justify-center" :class="destStyle">
           往 {{data.DestinationStopNameZh}}
         </div>
-        <div class="col-6 flex justify-center">
+        <div class="col-6 flex justify-center" :class="departStyle">
           往 {{data.DepartureStopNameZh}}
         </div>
       </div>
@@ -26,7 +26,7 @@
   </q-card>
 </template>
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 export default {
   name: 'BusStopsCard',
@@ -54,8 +54,14 @@ export default {
       ],
     }
 
+    const isDepart2Dest = ref(true)
+    const destStyle = computed(() => (isDepart2Dest.value ? 'block-dest' : 'block-non-dest'))
+    const departStyle = computed(() => (isDepart2Dest.value ? 'block-non-dest' : 'block-dest'))
+
     return {
       data,
+      destStyle,
+      departStyle,
     }
   },
 }
@@ -66,6 +72,14 @@ export default {
   font-weight: 900;
   font-size: 18px;
   line-height: 25px;
+}
+.block-dest {
+  background: #FFFFFF;
+  color: #33A6B8;
+}
+.block-non-dest {
+  background: #989898;
+  color: #E5E8E7;
 }
 .text-title {
   font-weight: bold;
