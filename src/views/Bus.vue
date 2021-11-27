@@ -27,10 +27,10 @@
         </div>
       </div>
       <div v-else-if="busRoute.RouteID === undefined" class="row q-col-gutter-xl">
-        <div class="col-3">
+        <div class="col-4">
           <q-select v-model="city" :options="cityOptions" label="選擇縣市" style="width:300px"/>
         </div>
-        <div class="col-9">
+        <div class="col-8">
           <q-input placeholder="請輸入路線編號，或直接點選左側路線編號。">
             <template v-slot:append>
               <q-icon name="search" />
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div v-else class="row q-col-gutter-xl">
-        <div class="col-3 column q-gutter-lg">
+        <div class="col-4 column q-gutter-lg">
           <div class="row">
             <div class="col-2">
               <q-btn round flat @click="delete busRoute.RouteID">
@@ -59,9 +59,12 @@
           <div>
             <SingleBusRouteCard :value="busRoute"/>
           </div>
+          <div>
+            <BusStopsCard :value="busRoute"/>
+          </div>
           <div><StopCard :value="busStops"></StopCard></div>
         </div>
-        <div class="col-9">
+        <div class="col-8">
           <GMap class="g-map-bus"></GMap>
         </div>
       </div>
@@ -95,6 +98,7 @@ export default defineComponent({
     BusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/BusRouteCard.vue')),
     SingleBusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/SingleBusRouteCard.vue')),
     GMap,
+    BusStopsCard: defineAsyncComponent(() => import('@/components/_week3Utils/BusStopsCard.vue')),
     StopCard,
   },
   setup() {

@@ -6,7 +6,7 @@
         <div class="text-content">{{route.DepartureStopNameZh}}－{{route.DestinationStopNameZh}}</div>
       </div>
       <div class="collection">
-        star
+        <img src="@/assets/icon/btnFavorate.svg" width="20"/>
       </div>
     </q-card-section>
   </q-card>
