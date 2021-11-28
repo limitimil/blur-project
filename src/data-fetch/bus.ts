@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios'
 import axios from '@/axios'
 import TdxArgument from './tdx/interface/TdxArgument'
+import { TdxFilter } from './tdx/filterDSL'
 
 // eslint-disable-next-line no-shadow
 export enum BusDataType {
@@ -37,6 +38,13 @@ function insert(value, index, item) {
 export default class Bus {
   private arg: TdxArgument = {}
 
+  protected filter: TdxFilter;
+
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  constructor() {
+    this.filter = new TdxFilter()
+  }
+
   private urlPath: string[] = [
     'MOTC',
     'v2',
@@ -45,10 +53,7 @@ export default class Bus {
   ]
 
   public withDirection(direction: number): Bus {
-    this.arg = {
-      ...this.arg,
-      $filter: `direction eq ${direction}`,
-    }
+    this.filter.regist([`Direction eq ${direction}`])
     return this
   }
 
@@ -75,6 +80,12 @@ export default class Bus {
   }
 
   public async invoke(city: string, type: BusDataType): Promise<any[]> {
+    if (this.filter.getLength()) {
+      this.arg = {
+        ...this.arg,
+        $filter: this.filter.combineJobs(),
+      }
+    }
     this.insertCity(city)
     this.insertType(type)
     const url = this.urlPath.join('/')
