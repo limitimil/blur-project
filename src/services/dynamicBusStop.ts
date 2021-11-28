@@ -1,11 +1,12 @@
 import lodash from 'lodash'
 import Bus, { BusDataType } from '@/data-fetch/bus'
+import TdxPosition from '@/interface/TdxPosition'
 
 /* TODO: define enums for
  - StopBoarding
  - StopStatus
 */
-interface BusStop {
+export interface BusStop {
   StopID: string,
   StopNameZh: string,
   StopBoarding: number,
@@ -14,11 +15,14 @@ interface BusStop {
   EstimateTime?: number,
   EstimateArrivalTimeStamp?: number,
   StopStatus: number,
+
+  StopPosition: TdxPosition,
 }
 
+// TODO: seperate interface and service definiton
 // TODO: This interface is similar to components/_week3Utils/interface/BusStop.ts. Try to refactor them.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface DynamicBusStops {
+export interface DynamicBusStops {
   RouteID: string,
   RouteName: string,
   DepartureStopNameZh: string,
@@ -51,6 +55,8 @@ export default class DynamicBusStopService {
       EstimateTime: value.EstimateTime,
       EstimateArrivalTimeStamp: value.EstimateArrivalTimeStamp,
       StopStatus: value.StopStatus,
+
+      StopPosition: value.StopPosition,
     }
   }
 
@@ -79,7 +85,7 @@ export default class DynamicBusStopService {
     // @ts-ignore
     const result = await builder.invoke(this.city, BusDataType.StopOfRoute)
     if (result.length !== 1) {
-      throw Error(`expect stop of route result should be in length 1, but get ${result.length}`)
+      console.warn(`Expect stop of route result should be in length 1, but get ${result.length}`)
     }
     return result[0]
   }
