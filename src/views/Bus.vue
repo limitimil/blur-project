@@ -92,8 +92,6 @@ import CityService from '@/services/city'
 
 import StopCard from '@/components/_storyUtils/StopCard.vue'
 import GMap from '@/components/_week2Utils/gMap.vue'
-import gMapStore from '@/components/_week2Utils/store/gMap'
-import { drawBusStopOnMap } from '@/services/gMap'
 
 export default defineComponent({
   name: 'Bus',
@@ -130,8 +128,6 @@ export default defineComponent({
     const busRoute = reactive({})
     const updateRoute = (route: any) => {
       Object.assign(busRoute, route)
-      // @ts-ignore
-      drawBusStopOnMap(city.value.key, route.RouteName.Zh_tw, 0, gMapStore)
       busStore.commit('appendQuery', { routeName: route.RouteName.Zh_tw })
       busStore.dispatch('fetch')
     }
