@@ -11,7 +11,7 @@
       </div>
     </q-card-section>
     <q-card-section>
-      <div class="row">
+      <div class="row q-col-gutter-sm">
         <div class="col-3 text-title">站序</div>
         <div class="col-6 text-title">站名</div>
         <div class="col-3 text-title">預估到站</div>
