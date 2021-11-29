@@ -41,7 +41,7 @@
           <BusRouteCard :value="busRoutes" @update="updateRoute" />
         </div>
         <div class="col-9">
-          <GMap></GMap>
+          <GMap class="g-map-bus"></GMap>
         </div>
       </div>
       <div v-else class="row q-col-gutter-xl">
@@ -66,7 +66,7 @@
           <div><StopCard :value="busStops"></StopCard></div>
         </div>
         <div class="col-9">
-          <GMap></GMap>
+          <GMap class="g-map-bus"></GMap>
         </div>
       </div>
     </div>
@@ -177,5 +177,9 @@ html {
 .btn {
   color: #E5E8E7;
   font-size: 24px;
+}
+// TODO: refine css definition inside GMap.vue
+.g-map-bus {
+  width: 100% !important;
 }
 </style>
