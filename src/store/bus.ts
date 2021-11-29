@@ -53,7 +53,7 @@ export default createStore({
     },
     // TODO: poc first, seperate responsibility then
     async markBusStop(context,
-                param: { position: TdxPosition,
+      param: { position: TdxPosition,
                   sequence: number,
                   color: string,
                 }) {
