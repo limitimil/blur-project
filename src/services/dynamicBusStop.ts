@@ -116,7 +116,7 @@ export default class DynamicBusStopService {
     let stops = await this.fetchStops()
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const estimatedTime = await this.fetchEstimatedTime()
-    this.fetchTime = Math.floor(Date.now()/ 1000)
+    this.fetchTime = Math.floor(Date.now() / 1000)
     // eslint-disable-next-line arrow-body-style
     stops = this.calculateDeptDest(stops)
     stops.Stops = lodash.map(
