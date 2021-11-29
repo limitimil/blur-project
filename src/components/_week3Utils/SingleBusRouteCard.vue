@@ -1,9 +1,12 @@
 <template>
   <q-card>
-    <q-card-section class="flex justify-center">
-      <div class="text-title">
-        <div class="flex justify-center">{{route.RouteName}}</div>
-        <div class="flex justify-center">{{route.DepartureStopNameZh}}－{{route.DestinationStopNameZh}}</div>
+    <q-card-section class="flex justify-between items-center">
+      <div class="text">
+        <div class="text-title">{{route.RouteName}}</div>
+        <div class="text-content">{{route.DepartureStopNameZh}}－{{route.DestinationStopNameZh}}</div>
+      </div>
+      <div class="collection">
+        <img src="@/assets/icon/btnFavorate.svg" width="20"/>
       </div>
     </q-card-section>
   </q-card>
@@ -28,9 +31,14 @@ export default {
 
 </script>
 <style lang="less" scoped>
-.text-title {
+.text {
   color: #484848;
+}
+.text-title {
   font-weight: 900;
   font-size: 18px;
+}
+.text-content {
+  font-size: 14px;
 }
 </style>
