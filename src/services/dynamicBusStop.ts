@@ -1,11 +1,12 @@
 import lodash from 'lodash'
 import Bus, { BusDataType } from '@/data-fetch/bus'
+import TdxPosition from '@/interface/TdxPosition'
 
 /* TODO: define enums for
  - StopBoarding
  - StopStatus
 */
-interface BusStop {
+export interface BusStop {
   StopID: string,
   StopNameZh: string,
   StopBoarding: number,
@@ -14,11 +15,14 @@ interface BusStop {
   EstimateTime?: number,
   EstimateArrivalTimeStamp?: number,
   StopStatus: number,
+
+  StopPosition: TdxPosition,
 }
 
+// TODO: seperate interface and service definiton
 // TODO: This interface is similar to components/_week3Utils/interface/BusStop.ts. Try to refactor them.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface DynamicBusStops {
+export interface DynamicBusStops {
   RouteID: string,
   RouteName: string,
   DepartureStopNameZh: string,
@@ -33,6 +37,8 @@ export default class DynamicBusStopService {
   protected routeName: string | undefined = undefined;
 
   protected direction: number = 0;
+
+  protected fetchTime: any = undefined;
 
   private setZh(value: any, key: string): DynamicBusStops {
     const rawStr = value[key].Zh_tw
@@ -49,8 +55,10 @@ export default class DynamicBusStopService {
       StopSequence: value.StopSequence,
 
       EstimateTime: value.EstimateTime,
-      EstimateArrivalTimeStamp: value.EstimateArrivalTimeStamp,
+      EstimateArrivalTimeStamp: this.fetchTime + value.EstimateTime,
       StopStatus: value.StopStatus,
+
+      StopPosition: value.StopPosition,
     }
   }
 
@@ -77,11 +85,13 @@ export default class DynamicBusStopService {
     // @ts-ignore
     builder = builder.withRouteName(this.routeName)
     // @ts-ignore
-    const result = await builder.invoke(this.city, BusDataType.StopOfRoute)
-    if (result.length !== 1) {
-      throw Error(`expect stop of route result should be in length 1, but get ${result.length}`)
+    const response = await builder.invoke(this.city, BusDataType.StopOfRoute)
+    if (response.length !== 1) {
+      console.warn(`Expect stop of route result should be in length 1, but get ${response.length}`)
     }
-    return result[0]
+    const result = response[0]
+    result.Stops = lodash.sortBy(result.Stops, ['StopSequence'])
+    return result
   }
 
   private async fetchEstimatedTime(): Promise<any[]> {
@@ -91,7 +101,8 @@ export default class DynamicBusStopService {
     // @ts-ignore
     builder = builder.withRouteName(this.routeName)
     // @ts-ignore
-    return builder.invoke(this.city, BusDataType.EstimatedTimeOfArrival)
+    const result = await builder.invoke(this.city, BusDataType.EstimatedTimeOfArrival)
+    return lodash.sortBy(result, ['StopSequence'])
   }
 
   public async fetch(): Promise<DynamicBusStops[]> {
@@ -105,16 +116,19 @@ export default class DynamicBusStopService {
     let stops = await this.fetchStops()
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const estimatedTime = await this.fetchEstimatedTime()
+    this.fetchTime = Math.floor(Date.now() / 1000)
     // eslint-disable-next-line arrow-body-style
     stops = this.calculateDeptDest(stops)
     stops.Stops = lodash.map(
       lodash.zip(stops.Stops, estimatedTime),
       ([stop, time]) => {
         const result = {
-          ...this.calculateStop(stop),
+          // @ts-ignore
+          ...stop,
+          // @ts-ignore
           ...time,
         }
-        return result
+        return this.calculateStop(result)
       },
     )
     stops = this.setZh(stops, 'RouteName')

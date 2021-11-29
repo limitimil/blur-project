@@ -64,6 +64,7 @@ export default {
         '/data-stories/topFiveBikeStationNearBy101WithKeyword',
         '/vuex-stories/Travel',
         '/week2/workflow/bike-station',
+        '/vuex-stories/BusStopMap',
       ],
     }
   },

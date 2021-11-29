@@ -11,29 +11,37 @@
     <q-btn @click="getBusStopOnMap">Get Bus Stop on Map</q-btn>
   </div>
   <GMap></GMap>
+  <StopCard :value="route"></StopCard>
 </template>
 <script lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import GMap from '@/components/_week2Utils/gMap.vue'
-import gMapStore from '@/components/_week2Utils/store/gMap'
-import { drawBusStopOnMap } from '@/services/gMap'
+
+import busStore from '@/store/bus'
+import StopCard from '@/components/_storyUtils/StopCard.vue'
 
 export default {
   name: 'BikeStation',
   components: {
     GMap,
+    StopCard,
   },
   setup() {
     const position = ref(undefined)
     const city = ref('Taipei')
     const routeName = ref('204')
     const direction = ref(0)
-    const calculateCenter = () => { position.value = gMapStore.getters.map.getCenter() }
+    const calculateCenter = () => { position.value = busStore.getters.map.getCenter() }
 
     onMounted(() => {
-      position.value = gMapStore.getters.map.getCenter()
+      // TODO: This is a workaround. To solve this issue, you should re-order the GoogleMap handling someday.
+      busStore.dispatch('initMap', 'map')
+      position.value = busStore.getters.map.getCenter()
     })
     return {
+
+      // computed
+      route: computed(() => busStore.getters.content),
 
       // Varaibles
       city,
@@ -44,7 +52,12 @@ export default {
       // methods
       calculateCenter,
       getBusStopOnMap: () => {
-        drawBusStopOnMap(city.value, routeName.value, direction.value, gMapStore)
+        busStore.commit('setQuery', {
+          city: city.value,
+          routeName: routeName.value,
+          direction: parseInt(direction.value.toString(), 10),
+        })
+        busStore.dispatch('fetch')
       },
 
     }

@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-expressions */
 import { createStore } from 'vuex'
-import DynamicBusStopService from '@/services/dynamicBusStop'
+import DynamicBusStopService, { DynamicBusStops, BusStop } from '@/services/dynamicBusStop'
+
+import gMap from './modules/gMap'
+import TdxPosition from '@/interface/TdxPosition'
+
+import IconService from '@/services/icon'
 
 interface BusQuery {
   city?: string;
@@ -10,7 +15,7 @@ interface BusQuery {
 export default createStore({
   state: {
     commandService: new DynamicBusStopService(),
-    content: {},
+    content: {} as DynamicBusStops,
   },
   getters: {
     content: (state) => state.content,
@@ -36,8 +41,31 @@ export default createStore({
     async fetch(context) {
       const command = context.state.commandService
       context.commit('setContent', await command.fetch())
+      const { Stops } = context.state.content
+      context.dispatch('initMap', 'map')
+      Stops.forEach((element: BusStop) => {
+        context.dispatch('markBusStop', {
+          position: element.StopPosition,
+          sequence: element.StopSequence,
+          color: 'blue',
+        })
+      })
+    },
+    // TODO: poc first, seperate responsibility then
+    async markBusStop(context,
+      param: { position: TdxPosition,
+                  sequence: number,
+                  color: string,
+                }) {
+      const latlng = {
+        lat: param.position.PositionLat,
+        lng: param.position.PositionLon,
+      }
+      const img = await new IconService().getLocationIcon(param.sequence, param.color)
+      context.dispatch('markV2', { position: latlng, img })
     },
   },
   modules: {
+    gMap,
   },
 })

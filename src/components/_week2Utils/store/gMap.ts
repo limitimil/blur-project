@@ -40,14 +40,26 @@ export default createStore({
         lat: position.PositionLat,
         lng: position.PositionLon,
       }
-      context.dispatch('mark', latlng)
+      context.dispatch('markV2', { position: latlng, img: gMapMark })
     },
+    // TODO: deprecate this
     mark(context, position) {
       const { map } = context.state
       // @ts-ignore
       const marker = new google.maps.Marker({
         position,
         icon: gMapMark,
+        map,
+      })
+      context.commit('appendMarker', marker)
+    },
+    markV2(context, { position, img }) {
+      console.log({ position, img })
+      const { map } = context.state
+      // @ts-ignore
+      const marker = new google.maps.Marker({
+        position,
+        icon: img,
         map,
       })
       context.commit('appendMarker', marker)
