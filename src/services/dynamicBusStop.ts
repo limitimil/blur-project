@@ -38,6 +38,8 @@ export default class DynamicBusStopService {
 
   protected direction: number = 0;
 
+  protected fetchTime: any = undefined;
+
   private setZh(value: any, key: string): DynamicBusStops {
     const rawStr = value[key].Zh_tw
     // eslint-disable-next-line no-param-reassign
@@ -53,7 +55,7 @@ export default class DynamicBusStopService {
       StopSequence: value.StopSequence,
 
       EstimateTime: value.EstimateTime,
-      EstimateArrivalTimeStamp: value.EstimateArrivalTimeStamp,
+      EstimateArrivalTimeStamp: this.fetchTime + value.EstimateTime,
       StopStatus: value.StopStatus,
 
       StopPosition: value.StopPosition,
@@ -99,7 +101,7 @@ export default class DynamicBusStopService {
     // @ts-ignore
     builder = builder.withRouteName(this.routeName)
     // @ts-ignore
-    const result = builder.invoke(this.city, BusDataType.EstimatedTimeOfArrival)
+    const result = await builder.invoke(this.city, BusDataType.EstimatedTimeOfArrival)
     return lodash.sortBy(result, ['StopSequence'])
   }
 
@@ -114,16 +116,19 @@ export default class DynamicBusStopService {
     let stops = await this.fetchStops()
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const estimatedTime = await this.fetchEstimatedTime()
+    this.fetchTime = Math.floor(Date.now()/ 1000)
     // eslint-disable-next-line arrow-body-style
     stops = this.calculateDeptDest(stops)
     stops.Stops = lodash.map(
       lodash.zip(stops.Stops, estimatedTime),
       ([stop, time]) => {
         const result = {
-          ...this.calculateStop(stop),
+          // @ts-ignore
+          ...stop,
+          // @ts-ignore
           ...time,
         }
-        return result
+        return this.calculateStop(result)
       },
     )
     stops = this.setZh(stops, 'RouteName')
