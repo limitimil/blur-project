@@ -60,9 +60,8 @@
             <SingleBusRouteCard :value="busRoute"/>
           </div>
           <div>
-            <BusStopsCard :value="busRoute"/>
+            <BusStopsCard :value="busStops"/>
           </div>
-          <div><StopCard :value="busStops"></StopCard></div>
         </div>
         <div class="col-8">
           <GMap class="g-map-bus"></GMap>
@@ -89,7 +88,6 @@ import busRouteStore from '@/store/busRoute'
 import busStore from '@/store/bus'
 import CityService from '@/services/city'
 
-import StopCard from '@/components/_storyUtils/StopCard.vue'
 import GMap from '@/components/_week2Utils/gMap.vue'
 
 export default defineComponent({
@@ -99,7 +97,6 @@ export default defineComponent({
     SingleBusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/SingleBusRouteCard.vue')),
     GMap,
     BusStopsCard: defineAsyncComponent(() => import('@/components/_week3Utils/BusStopsCard.vue')),
-    StopCard,
   },
   setup() {
     const city = ref(undefined)
