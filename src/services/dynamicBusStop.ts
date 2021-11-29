@@ -83,11 +83,13 @@ export default class DynamicBusStopService {
     // @ts-ignore
     builder = builder.withRouteName(this.routeName)
     // @ts-ignore
-    const result = await builder.invoke(this.city, BusDataType.StopOfRoute)
-    if (result.length !== 1) {
-      console.warn(`Expect stop of route result should be in length 1, but get ${result.length}`)
+    const response = await builder.invoke(this.city, BusDataType.StopOfRoute)
+    if (response.length !== 1) {
+      console.warn(`Expect stop of route result should be in length 1, but get ${response.length}`)
     }
-    return result[0]
+    const result = response[0]
+    result.Stops = lodash.sortBy(result.Stops, ['StopSequence'])
+    return result
   }
 
   private async fetchEstimatedTime(): Promise<any[]> {
@@ -97,7 +99,8 @@ export default class DynamicBusStopService {
     // @ts-ignore
     builder = builder.withRouteName(this.routeName)
     // @ts-ignore
-    return builder.invoke(this.city, BusDataType.EstimatedTimeOfArrival)
+    const result = builder.invoke(this.city, BusDataType.EstimatedTimeOfArrival)
+    return lodash.sortBy(result, ['StopSequence'])
   }
 
   public async fetch(): Promise<DynamicBusStops[]> {
