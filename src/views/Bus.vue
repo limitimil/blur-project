@@ -63,7 +63,7 @@
           <div>
             <SingleBusRouteCard :value="busRoute"/>
           </div>
-          <div>detail card</div>
+          <div><StopCard :value="busStops"></StopCard></div>
         </div>
         <div class="col-9">
           <GMap></GMap>
@@ -87,8 +87,10 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
 import busRouteStore from '@/store/busRoute'
+import busStore from '@/store/bus'
 import CityService from '@/services/city'
 
+import StopCard from '@/components/_storyUtils/StopCard.vue'
 import GMap from '@/components/_week2Utils/gMap.vue'
 import gMapStore from '@/components/_week2Utils/store/gMap'
 import { drawBusStopOnMap } from '@/services/gMap'
@@ -99,6 +101,7 @@ export default defineComponent({
     BusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/BusRouteCard.vue')),
     SingleBusRouteCard: defineAsyncComponent(() => import('@/components/_week3Utils/SingleBusRouteCard.vue')),
     GMap,
+    StopCard,
   },
   setup() {
     const city = ref(undefined)
@@ -107,6 +110,8 @@ export default defineComponent({
       if (city.value) {
         // @ts-ignore
         busRouteStore.commit('appendQuery', { city: city.value.key })
+        // @ts-ignore
+        busStore.commit('appendQuery', { city: city.value.key })
         await busRouteStore.dispatch('getAll')
       }
     })
@@ -127,12 +132,15 @@ export default defineComponent({
       Object.assign(busRoute, route)
       // @ts-ignore
       drawBusStopOnMap(city.value.key, route.RouteName.Zh_tw, 0, gMapStore)
+      busStore.commit('appendQuery', { routeName: route.RouteName.Zh_tw })
+      busStore.dispatch('fetch')
     }
 
     return {
       cityOptions: new CityService().getDecoratedCitiesForQuasarSelect(),
       city,
       busRoutes,
+      busStops: computed(() => busStore.getters.content),
       search,
       invalid,
       showAdvancedSearch,

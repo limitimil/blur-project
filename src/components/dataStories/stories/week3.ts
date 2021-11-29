@@ -1,4 +1,5 @@
 import BusRouteService from '@/services/busRoute'
+import DynamicBusStopService from '@/services/dynamicBusStop'
 import { BusDataType, getBusData, getBusDataStreaming } from '@/data-fetch/bus'
 
 const topFiveBusRouteInTaipei = async () => {
@@ -36,13 +37,21 @@ const BUS_DATA_TYPE = [
   'EstimatedTimeOfArrival',
   'DisplayStopOfRoute',
 ]
-const getBusDataInRealTimeByFrequencyStreaming = async () => getBusDataStreaming('HsinChu', BusDataType.RealTimeByFrequency, '0007')
-const getBusDataInRealTimeNearStopStreaming = async () => getBusDataStreaming('HsinChu', BusDataType.RealTimeNearStop, '0007')
-const getBusDataInEstimatedTimeOfArrivalStreaming = async () => getBusDataStreaming('HsinChu', BusDataType.EstimatedTimeOfArrival, '0007')
-const getBusDataInRealTimeByFrequency = async () => getBusData('HsinChu', BusDataType.RealTimeByFrequency, '0007')
-const getBusDataInRealTimeNearStop = async () => getBusData('HsinChu', BusDataType.RealTimeNearStop, '0007')
-const getBusDataInEstimatedTimeOfArrival = async () => getBusData('HsinChu', BusDataType.EstimatedTimeOfArrival, '0007')
+const getBusDataInRealTimeByFrequencyStreaming = async () => getBusDataStreaming('HsinChu', BusDataType.RealTimeByFrequency, '81')
+const getBusDataInRealTimeNearStopStreaming = async () => getBusDataStreaming('HsinChu', BusDataType.RealTimeNearStop, '81')
+const getBusDataInEstimatedTimeOfArrivalStreaming = async () => getBusDataStreaming('HsinChu', BusDataType.EstimatedTimeOfArrival, '81')
+const getBusDataInRealTimeByFrequency = async () => getBusData('HsinChu', BusDataType.RealTimeByFrequency, '81')
+const getBusDataInRealTimeNearStop = async () => getBusData('HsinChu', BusDataType.RealTimeNearStop, '81')
+const getBusDataInEstimatedTimeOfArrival = async () => getBusData('HsinChu', BusDataType.EstimatedTimeOfArrival, '81')
 const getBusDataInDisplayStopOfRoute = async () => getBusData('Taipei', BusDataType.DisplayStopOfRoute, '204')
+
+const getDynamicBusStop = async () => {
+  const service = new DynamicBusStopService()
+  service.setCity('HsinChu')
+  service.setRouteName('81')
+  service.setDirection(0)
+  return [await service.fetch()]
+}
 
 export default {
   topFiveBusRouteInTaipei,
@@ -56,4 +65,5 @@ export default {
   getBusDataInRealTimeNearStop,
   getBusDataInEstimatedTimeOfArrival,
   getBusDataInDisplayStopOfRoute,
+  getDynamicBusStop,
 }

@@ -3,7 +3,6 @@ import { createStore } from 'vuex'
 import BusRouteService from '@/services/busRoute'
 import TdxPosition from '@/interface/TdxPosition'
 
-const MAX_CONTENT_COUNT = 9
 interface BusRouteQuery {
   city?: string;
   keyword?: string;
@@ -51,8 +50,7 @@ export default createStore({
   actions: {
     async getAll(context) {
       const command = context.state.commandService
-      command.getAll()
-      context.commit('setContent', await command.fetch())
+      context.commit('setContent', await command.getAll())
     },
   },
   modules: {
