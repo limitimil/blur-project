@@ -89,6 +89,7 @@ import busStore from '@/store/bus'
 import CityService from '@/services/city'
 
 import GMap from '@/components/_week2Utils/gMap.vue'
+import GoogleMapService from '@/services/gMap'
 
 export default defineComponent({
   name: 'Bus',
@@ -101,6 +102,7 @@ export default defineComponent({
   setup() {
     const city = ref(undefined)
     const busRoutes = computed(() => busRouteStore.getters.content)
+    const googleMapService = new GoogleMapService()
     watch(city, async () => {
       if (city.value) {
         // @ts-ignore
@@ -108,6 +110,8 @@ export default defineComponent({
         // @ts-ignore
         busStore.commit('appendQuery', { city: city.value.key })
         await busRouteStore.dispatch('getAll')
+        // @ts-ignore
+        googleMapService.centerByKeyword(city.value.key)
       }
     })
 

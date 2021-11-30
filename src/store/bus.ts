@@ -2,10 +2,13 @@
 import { createStore } from 'vuex'
 import DynamicBusStopService, { DynamicBusStops, BusStop } from '@/services/dynamicBusStop'
 
-import gMap from './modules/gMap'
 import TdxPosition from '@/interface/TdxPosition'
 
 import IconService from '@/services/icon'
+
+import GoogleMapService from '@/services/gMap.ts'
+
+const googleMapService = new GoogleMapService()
 
 interface BusQuery {
   city?: string;
@@ -42,7 +45,6 @@ export default createStore({
       const command = context.state.commandService
       context.commit('setContent', await command.fetch())
       const { Stops } = context.state.content
-      context.dispatch('initMap', 'map')
       Stops.forEach((element: BusStop) => {
         context.dispatch('markBusStop', {
           position: element.StopPosition,
@@ -62,10 +64,9 @@ export default createStore({
         lng: param.position.PositionLon,
       }
       const img = await new IconService().getLocationIcon(param.sequence, param.color)
-      context.dispatch('markV2', { position: latlng, img })
+      googleMapService.markV2(latlng, img)
     },
   },
   modules: {
-    gMap,
   },
 })
