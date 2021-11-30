@@ -45,13 +45,13 @@ export default createStore({
       const command = context.state.commandService
       context.commit('setContent', await command.fetch())
       const { Stops } = context.state.content
-      Stops.forEach((element: BusStop) => {
-        context.dispatch('markBusStop', {
-          position: element.StopPosition,
-          sequence: element.StopSequence,
-          color: 'blue',
-        })
-      })
+      googleMapService.purgeMarkers()
+      await Promise.all(Stops.map(async (element: BusStop) => context.dispatch('markBusStop', {
+        position: element.StopPosition,
+        sequence: element.StopSequence,
+        color: 'blue',
+      })))
+      googleMapService.centerByMarks()
     },
     // TODO: poc first, seperate responsibility then
     async markBusStop(context,
@@ -63,8 +63,12 @@ export default createStore({
         lat: param.position.PositionLat,
         lng: param.position.PositionLon,
       }
-      const img = await new IconService().getLocationIcon(param.sequence, param.color)
-      googleMapService.markV2(latlng, img)
+      try {
+        const img = await new IconService().getLocationIcon(param.sequence, param.color)
+        googleMapService.markV2(latlng, img)
+      } catch (err) {
+        console.warn(`We might run out of icon, please check error message: ${err}`)
+      }
     },
   },
   modules: {
