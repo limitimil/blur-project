@@ -11,4 +11,5 @@ module.exports = {
   transpileDependencies: [
     'quasar',
   ],
+  lintOnSave: false,
 }
