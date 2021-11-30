@@ -54,7 +54,6 @@ export default createStore({
       context.commit('appendMarker', marker)
     },
     markV2(context, { position, img }) {
-      console.log({ position, img })
       const { map } = context.state
       // @ts-ignore
       const marker = new google.maps.Marker({
