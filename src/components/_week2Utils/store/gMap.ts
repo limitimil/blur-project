@@ -10,10 +10,14 @@ export default createStore({
   },
   getters: {
     map: (state) => state.map,
+    markers: (state) => state.markers,
   },
   mutations: {
     setMap(state, map) {
       state.map = map
+    },
+    purgeMarkers(state) {
+      state.markers = []
     },
     appendMarker(state, marker) {
       state.markers = [

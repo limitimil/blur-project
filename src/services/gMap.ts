@@ -1,3 +1,4 @@
+import lodash from 'lodash'
 import gMapStore from '@/components/_week2Utils/store/gMap'
 
 export default class GoogleMapService {
@@ -19,5 +20,24 @@ export default class GoogleMapService {
         throw Error(`Geocode was not successful for the following reason: ${status}`)
       }
     })
+  }
+
+  public centerByMarks() {
+    const { map, markers } = gMapStore.getters
+    const latLngList = lodash.map(markers, (marker) => marker.getPosition())
+    console.log(latLngList.length)
+    // @ts-ignore
+    const latlngbounds = new google.maps.LatLngBounds()
+
+    latLngList.forEach((latLng) => {
+      latlngbounds.extend(latLng)
+    })
+
+    map.setCenter(latlngbounds.getCenter())
+    map.fitBounds(latlngbounds)
+  }
+
+  public purgeMarkers() {
+    gMapStore.commit('purgeMarkers')
   }
 }
