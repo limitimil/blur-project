@@ -1,34 +1,17 @@
 # blur-project
 
-## Project setup
-```
-npm install
-```
+## 網站入口
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- Week3: https://blur-project.netlify.app/week3
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 第三方服務
 
-### Run your unit tests
-```
-npm run test:unit
-```
+- [Google Map](https://developers.google.com/maps/documentation)
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
+### 相關技術
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Vue.js (3.0)
+- TypeScript
+- LESS
+- Vuex
+- Quasar
