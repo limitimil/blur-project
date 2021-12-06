@@ -10,23 +10,7 @@ export enum BusDataType {
   EstimatedTimeOfArrival= 'EstimatedTimeOfArrival',
   DisplayStopOfRoute= 'DisplayStopOfRoute', // We should avoid using this.
   StopOfRoute= 'StopOfRoute',
-}
-
-export async function getBusData(city: string, type: BusDataType, routeName: string): Promise<any[]> {
-  const url = `MOTC/v2/Bus/${type}/City/${city}/${routeName}`
-  const params = {
-    $format: 'JSON',
-  }
-  const res: AxiosResponse<any> = await axios.get(url, { params })
-  return res.data
-}
-export async function getBusDataStreaming(city: string, type: BusDataType, routeName: string): Promise<any[]> {
-  const url = `MOTC/v2/Bus/${type}/Streaming/City/${city}/${routeName}`
-  const params = {
-    $format: 'JSON',
-  }
-  const res: AxiosResponse<any> = await axios.get(url, { params })
-  return res.data
+  Stop= 'Stop',
 }
 
 // @ts-ignore
