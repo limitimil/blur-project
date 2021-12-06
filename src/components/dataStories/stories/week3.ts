@@ -1,3 +1,4 @@
+import BusStopService from '@/services/busStop'
 import BusRouteService from '@/services/busRoute'
 import DynamicBusStopService from '@/services/dynamicBusStop'
 import { BusDataType, getBusData, getBusDataStreaming } from '@/data-fetch/bus'
@@ -53,6 +54,23 @@ const getDynamicBusStop = async () => {
   return [await service.fetch()]
 }
 
+const busStopNearBy101 = async () => {
+  const service = new BusStopService()
+  service.setCity('Taipei')
+  service.setNearBy({
+    PositionLon: 121.56165724984085,
+    PositionLat: 25.03357704438537,
+  })
+  return service.fetch()
+}
+
+const topFiveBusStopInTaipei = async () => {
+  const service = new BusStopService()
+  service.setCity('Taipei')
+  service.top(5)
+  return service.fetch()
+}
+
 export default {
   topFiveBusRouteInTaipei,
   topFiveBusRouteInHsinChu,
@@ -66,4 +84,6 @@ export default {
   getBusDataInEstimatedTimeOfArrival,
   getBusDataInDisplayStopOfRoute,
   getDynamicBusStop,
+  busStopNearBy101,
+  topFiveBusStopInTaipei,
 }
