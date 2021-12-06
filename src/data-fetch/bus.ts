@@ -1,7 +1,9 @@
 import { AxiosResponse } from 'axios'
 import axios from '@/axios'
-import TdxArgument from './tdx/interface/TdxArgument'
+import TdxPosition from '@/interface/TdxPosition'
 import { TdxFilter } from './tdx/filterDSL'
+
+import TdxRequestBuilder from './tdx/requestBuilder'
 
 // eslint-disable-next-line no-shadow
 export enum BusDataType {
@@ -19,13 +21,19 @@ function insert(value, index, item) {
 }
 
 // TODO: need ut to guard magic of urlPath
-export default class Bus {
-  private arg: TdxArgument = {}
+export default class Bus extends TdxRequestBuilder {
+  protected KEY_FOR_ID: string = 'StopID';
+
+  protected FIELDS_FOR_KEYWORD: string[] = [
+    'StopName/Zh_tw',
+    'StopName/En',
+  ];
 
   protected filter: TdxFilter;
 
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   constructor() {
+    super()
     this.filter = new TdxFilter()
   }
 
@@ -53,25 +61,36 @@ export default class Bus {
     return this
   }
 
-  private insertCity(city: string): void{
+  public withCity(city: string): Bus {
     const idx = this.urlPath.findIndex((elem) => elem === 'City')
     insert(this.urlPath, idx + 1, city)
+    return this
   }
 
-  private insertType(type: string): void{
+  public withType(type: string): Bus {
     const idx = this.urlPath.findIndex((elem) => elem === 'Bus')
     insert(this.urlPath, idx + 1, type)
+    return this
   }
 
-  public async invoke(city: string, type: BusDataType): Promise<any[]> {
+  // TODO: DRY along with the withNearBy in data-fetch/bikeStation.ts
+  public withNearBy(position: TdxPosition): Bus {
+    const key = 'StopPosition'
+    const distance = 200
+    this.arg = {
+      ...this.arg,
+      $spatialFilter: `nearBy(${key}, ${position.PositionLat}, ${position.PositionLon}, ${distance})`,
+    }
+    return this
+  }
+
+  public async invoke(): Promise<any[]> {
     if (this.filter.getLength()) {
       this.arg = {
         ...this.arg,
         $filter: this.filter.combineJobs(),
       }
     }
-    this.insertCity(city)
-    this.insertType(type)
     const url = this.urlPath.join('/')
     const params = {
       $format: 'JSON',

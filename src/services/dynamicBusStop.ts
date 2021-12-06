@@ -85,7 +85,10 @@ export default class DynamicBusStopService {
     // @ts-ignore
     builder = builder.withRouteName(this.routeName)
     // @ts-ignore
-    const response = await builder.invoke(this.city, BusDataType.StopOfRoute)
+    builder = builder.withCity(this.city)
+    // @ts-ignore
+    builder = builder.withType(BusDataType.StopOfRoute)
+    const response = await builder.invoke()
     if (response.length !== 1) {
       console.warn(`Expect stop of route result should be in length 1, but get ${response.length}`)
     }
@@ -101,7 +104,10 @@ export default class DynamicBusStopService {
     // @ts-ignore
     builder = builder.withRouteName(this.routeName)
     // @ts-ignore
-    const result = await builder.invoke(this.city, BusDataType.EstimatedTimeOfArrival)
+    builder = builder.withCity(this.city)
+    // @ts-ignore
+    builder = builder.withType(BusDataType.EstimatedTimeOfArrival)
+    const result = await builder.invoke()
     return lodash.sortBy(result, ['StopSequence'])
   }
 
