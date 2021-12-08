@@ -1,6 +1,7 @@
 <template>
   <div class="card-container">
     <div class="map" id="map"></div>
+    <CenterByLocation @click="center"></CenterByLocation>
   </div>
 </template>
 
@@ -8,17 +9,26 @@
 import { onMounted, defineComponent } from 'vue'
 import store from './store/gMap'
 
+// TODO: rearrange this components and the following dependencies
+import CenterByLocation from '@/components/_week3Utils/map/CenterByLocation.vue'
+
 export default defineComponent({
   name: 'LayoutDefault',
 
+  emits: ['on-center'],
   components: {
+    CenterByLocation,
   },
 
-  setup() {
+  setup(props, { emit }) {
     onMounted(() => {
       store.dispatch('initMap', 'map')
     })
     return {
+      center: async () => {
+        await store.dispatch('centerByMyLocation')
+        emit('on-center')
+      },
     }
   },
 })
@@ -26,13 +36,14 @@ export default defineComponent({
 </script>
 <style scoped lang="less">
 .card-container {
-  display: flex;
-  width: 100vw;
+  position: relative;
   min-height: 500px;
 }
 
 .map {
+  position: absolute !important;
   width: 100%;
+  height: 100%;
 }
 
 </style>
