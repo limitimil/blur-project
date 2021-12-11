@@ -41,7 +41,7 @@
           <BusRouteCard :value="busRoutes" @update="updateRoute" />
         </div>
         <div class="col-9">
-          <GMap class="g-map-bus"></GMap>
+          <GMap class="g-map-bus" @on-center="handleMapCenter"></GMap>
         </div>
       </div>
       <div v-else class="row q-col-gutter-xl">
@@ -90,6 +90,8 @@ import CityService from '@/services/city'
 
 import GMap from '@/components/_week2Utils/gMap.vue'
 import GoogleMapService from '@/services/gMap'
+
+import BusStopService from '@/services/busStop'
 
 export default defineComponent({
   name: 'Bus',
@@ -143,6 +145,21 @@ export default defineComponent({
       showAdvancedSearch,
       busRoute,
       updateRoute,
+      handleMapCenter: async () => {
+        const service = new BusStopService()
+        const location = googleMapService.getLocation()
+        const inferedCity = new CityService().getCityByLatLng(location)
+
+        service.setCity(inferedCity)
+        service.setNearBy(location)
+
+        const result = await service.fetch()
+
+        googleMapService.purgeMarkers()
+        result.forEach((stop: BusStop) => {
+          // TODO: do something after centering the map by location
+        })
+      },
     }
   },
 })
@@ -181,6 +198,6 @@ html {
 }
 // TODO: refine css definition inside GMap.vue
 .g-map-bus {
-  width: 100% !important;
+  height: 500px;
 }
 </style>
