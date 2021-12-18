@@ -10,10 +10,14 @@ export default createStore({
   },
   getters: {
     map: (state) => state.map,
+    markers: (state) => state.markers,
   },
   mutations: {
     setMap(state, map) {
       state.map = map
+    },
+    purgeMarkers(state) {
+      state.markers = []
     },
     appendMarker(state, marker) {
       state.markers = [
@@ -54,7 +58,6 @@ export default createStore({
       context.commit('appendMarker', marker)
     },
     markV2(context, { position, img }) {
-      console.log({ position, img })
       const { map } = context.state
       // @ts-ignore
       const marker = new google.maps.Marker({

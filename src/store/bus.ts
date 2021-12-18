@@ -2,10 +2,13 @@
 import { createStore } from 'vuex'
 import DynamicBusStopService, { DynamicBusStops, BusStop } from '@/services/dynamicBusStop'
 
-import gMap from './modules/gMap'
 import TdxPosition from '@/interface/TdxPosition'
 
 import IconService from '@/services/icon'
+
+import GoogleMapService from '@/services/gMap.ts'
+
+const googleMapService = new GoogleMapService()
 
 interface BusQuery {
   city?: string;
@@ -42,14 +45,13 @@ export default createStore({
       const command = context.state.commandService
       context.commit('setContent', await command.fetch())
       const { Stops } = context.state.content
-      context.dispatch('initMap', 'map')
-      Stops.forEach((element: BusStop) => {
-        context.dispatch('markBusStop', {
-          position: element.StopPosition,
-          sequence: element.StopSequence,
-          color: 'blue',
-        })
-      })
+      googleMapService.purgeMarkers()
+      await Promise.all(Stops.map(async (element: BusStop) => context.dispatch('markBusStop', {
+        position: element.StopPosition,
+        sequence: element.StopSequence,
+        color: 'blue',
+      })))
+      googleMapService.centerByMarks()
     },
     // TODO: poc first, seperate responsibility then
     async markBusStop(context,
@@ -61,11 +63,14 @@ export default createStore({
         lat: param.position.PositionLat,
         lng: param.position.PositionLon,
       }
-      const img = await new IconService().getLocationIcon(param.sequence, param.color)
-      context.dispatch('markV2', { position: latlng, img })
+      try {
+        const img = await new IconService().getLocationIcon(param.sequence, param.color)
+        googleMapService.markV2(latlng, img)
+      } catch (err) {
+        console.warn(`We might run out of icon, please check error message: ${err}`)
+      }
     },
   },
   modules: {
-    gMap,
   },
 })
