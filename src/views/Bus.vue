@@ -15,58 +15,7 @@
     </q-header>
 
     <div id="bus">
-      <div v-if="!showAdvancedSearch" class="row">
-        <div class="col-12">
-          <div class="column justify-evenly items-center" style="height:990px">
-            <img src="@/assets/logo/bus-en.svg" width="372"/>
-            <img src="@/assets/logo/bus-zh.svg" width="253"/>
-            <q-select v-model="city" :options="cityOptions" label="選擇縣市" style="width:446px"/>
-            <span v-show="invalid" class="text-warn">請先選擇您要查詢的縣市。</span>
-            <q-btn color="amber" label="START" size="30px" @click="search"/>
-          </div>
-        </div>
-      </div>
-      <div v-else-if="busRoute.RouteID === undefined" class="row q-col-gutter-xl">
-        <div class="col-4">
-          <q-select v-model="city" :options="cityOptions" label="選擇縣市" style="width:300px"/>
-        </div>
-        <div class="col-8">
-          <q-input placeholder="請輸入路線編號，或直接點選左側路線編號。">
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-        </div>
-        <div class="col-3">
-          <BusRouteCard :value="busRoutes" @update="updateRoute" />
-        </div>
-        <div class="col-9">
-          <GMap class="g-map-bus" @on-center="handleMapCenter"></GMap>
-        </div>
-      </div>
-      <div v-else class="row q-col-gutter-xl">
-        <div class="col-4 column q-gutter-lg">
-          <div class="row">
-            <div class="col-2">
-              <q-btn round flat @click="delete busRoute.RouteID">
-                <img src="@/assets/icon/btnReturn.svg" width="56"/>
-              </q-btn>
-            </div>
-            <div class="col-10">
-              <q-select v-model="city" :options="cityOptions" label="選擇縣市" />
-            </div>
-          </div>
-          <div>
-            <SingleBusRouteCard :value="busRoute"/>
-          </div>
-          <div>
-            <BusStopsCard :value="busStops"/>
-          </div>
-        </div>
-        <div class="col-8">
-          <GMap class="g-map-bus"></GMap>
-        </div>
-      </div>
+      <router-view></router-view>
     </div>
 
     <q-footer class="text-white">
@@ -118,7 +67,7 @@ export default defineComponent({
     })
 
     const invalid = ref(false)
-    const showAdvancedSearch = ref(false)
+    const showAdvancedSearch = ref(true)
     const search = () => {
       if (!city.value) {
         invalid.value = true
