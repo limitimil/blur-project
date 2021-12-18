@@ -9,12 +9,15 @@
 - insert new fields to base class
   - abstract method withNearBy
 # Dynamic Task
+- routing view experience
+  - trigger select and re-direct to bus search.vue
+      - bring city information in the parameter
 - feed right city information to BusStopService, city information should be infered by lnglat. :ok:
   - candidates are:
     - npm i taiwan-area-from-lnglat :selected:
     - GoogleMap Api https://developers.google.com/maps/documentation/geocoding/overview
     - combine multiple queries and combine the data
-- draw a workflow with draw.io
+- draw a workflow with draw.io :ok:
 - draw marks on googlemap, mimic the mark function in @/store/bus.ts
   - candidates are:
     - create new store @/store/busStop.ts responsible for rendering busstops
