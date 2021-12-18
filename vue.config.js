@@ -8,6 +8,9 @@ module.exports = {
       rtlSupport: false,
     },
   },
+  devServer: {
+    disableHostCheck: true,
+  },
   transpileDependencies: [
     'quasar',
   ],
