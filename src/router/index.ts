@@ -39,7 +39,24 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/week3',
     name: 'Week3',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/Bus.vue'),
+    component: () => import(/* webpackChunkName: "bus-home" */ '@/views/BusHome.vue'),
+  },
+  {
+    path: '/week3',
+    name: 'Bus',
+    component: () => import(/* webpackChunkName: "bus" */ '@/views/Bus.vue'),
+    children: [
+      {
+        path: 'search',
+        name: 'BusSearch',
+        component: () => import(/* webpackChunkName: "bus" */ '@/views/BusSearch.vue'),
+      },
+      {
+        path: 'route',
+        name: 'BusRoute',
+        component: () => import(/* webpackChunkName: "bus" */ '@/views/BusRoute.vue'),
+      },
+    ],
   },
   {
     path: '/data-stories/:storyId',

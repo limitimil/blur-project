@@ -7,10 +7,12 @@ export default createStore({
   state: {
     map: undefined,
     markers: [] as any[],
+    location: {},
   },
   getters: {
     map: (state) => state.map,
     markers: (state) => state.markers,
+    location: (state) => state.location,
   },
   mutations: {
     setMap(state, map) {
@@ -24,6 +26,9 @@ export default createStore({
         ...state.markers,
         marker,
       ]
+    },
+    setLocation(state, location) {
+      state.location = location
     },
   },
   actions: {
@@ -78,6 +83,7 @@ export default createStore({
                 lng: position.coords.longitude,
               }
 
+              context.commit('setLocation', pos)
               // @ts-ignore
               // eslint-disable-next-line no-unused-expressions
               map?.setCenter(pos)

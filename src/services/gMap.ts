@@ -40,4 +40,16 @@ export default class GoogleMapService {
   public purgeMarkers() {
     gMapStore.commit('purgeMarkers')
   }
+
+  // TODO: refactor this entry point to decouple googlemap service and tdx format
+  public getLocation(mode?: string | undefined) { // Expect mode to be "TDXPosition" or undefined
+    const { location } = gMapStore.getters
+    if (mode === 'TDXPosition') {
+      return {
+        PositionLon: location.lng,
+        PositionLat: location.lat,
+      }
+    }
+    return location
+  }
 }
